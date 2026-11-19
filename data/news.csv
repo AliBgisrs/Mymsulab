@@ -1,0 +1,5 @@
+date,label,title,text
+2026-08,,Joining Montana State University,"Dr. Bazrafkan starts as Tenure-Track Assistant Professor of Precision Agriculture at MSU. The ABZN Lab opens in Bozeman and is recruiting its first graduate students."
+2026-05,,Paper: YOLOv12 dry bean stand counting,"Published in The Plant Phenome Journal: segmentation beats detection and thresholding for counting overlapping plants from low-cost RGB drone imagery (R² = 0.972), deployed as a web app for non-programmers."
+2026-02,,Paper: automated center-pivot irrigation mapping,"Out in Remote Sensing: YOLOv11 reaches 0.98 precision across Landsat 8, Sentinel-2 and NAIP imagery."
+,Earlier,Dry pea phenotyping studies published,"Yield and protein estimation with multispectral data integration and ensemble learning, and dry pea maturity prediction with UAS sensor fusion."

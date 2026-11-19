@@ -1,0 +1,26 @@
+key,value
+hiring,YES
+recruit_text,Recruiting Ph.D. and M.S. students · Spring 2027
+recruit_link,#team
+email,ali.bazrafkan@montana.edu
+scholar_url,https://scholar.google.com/citations?hl=en&user=aPv6QYgAAAAJ
+github_url,https://github.com/AliBgisrs
+linkedin_url,https://www.linkedin.com/in/ali-bazrafkan-phd-424829244/
+coords,45.667° N · 111.049° W · Bozeman, MT
+marquee,NDVI|NDRE|canopy temperature|plant height|stand count|center-pivot irrigation|dry pea|dry bean|wheat|Sentinel-2|Landsat 8|NAIP|hyperspectral 400–1000 nm|LiDAR|YOLOv11 · YOLOv12|prescription maps
+stat1_value,0.94
+stat1_decimals,2
+stat1_suffix,
+stat1_label,F1 mapping center-pivot irrigation
+stat2_value,0.972
+stat2_decimals,3
+stat2_suffix,
+stat2_label,R² for UAS stand counting (YOLOv12)
+stat3_value,70
+stat3_decimals,0
+stat3_suffix,+
+stat3_label,Open-source repositories
+stat4_value,100
+stat4_decimals,0
+stat4_suffix,+
+stat4_label,Citations across peer-reviewed work

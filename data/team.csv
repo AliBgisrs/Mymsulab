@@ -1,0 +1,5 @@
+order,kind,level,name,role,focus,photo,initials,bio,email,scholar,github,linkedin
+1,pi,pi,Dr. Ali Bazrafkan,Principal investigator,,pi.png,AB,"Assistant Professor of Precision Agriculture at Montana State University. His lab combines UAV and satellite remote sensing, GIS modeling and machine learning to turn imagery into decisions, from high-throughput crop phenotyping to mapping irrigation across entire regions. He earned his Ph.D. at North Dakota State University, did postdoctoral work at Michigan State University, and spent a decade before that as a GIS and remote sensing specialist in applied agriculture.",ali.bazrafkan@montana.edu,https://scholar.google.com/citations?hl=en&user=aPv6QYgAAAAJ,https://github.com/AliBgisrs,https://www.linkedin.com/in/ali-bazrafkan-phd-424829244/
+2,member,phd,Md. Raihanul Islam,Ph.D. student,High-throughput phenotyping,student-raihanul.png,RI,,,,,
+3,open,,Ph.D. position,Ph.D. position,GeoAI & remote sensing,,,,,,,
+4,open,,M.S. position,M.S. position,Precision agriculture,,,,,,,

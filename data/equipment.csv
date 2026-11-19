@@ -1,0 +1,7 @@
+order,name,description,spec,icon
+1,UAV platform,Multirotor drone for field campaigns and plot-level imaging.,AIR,drone
+2,Multispectral camera,Calibrated multispectral imaging for vegetation indices and trait estimation.,VIS–NIR,camera
+3,Hyperspectral sensor,Narrow-band spectroscopy for seed quality and crop stress analysis.,400–1000 nm,spectrum
+4,Thermal camera,Canopy temperature mapping for water stress and irrigation studies.,LWIR,thermal
+5,LiDAR,3D canopy structure and plant height at plot scale.,3D,lidar
+6,GPU workstation,Deep learning training and large-scale imagery processing.,CUDA,gpu

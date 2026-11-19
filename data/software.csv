@@ -1,0 +1,7 @@
+order,name,description,url,icon,style
+1,VOCtoYOLO11,"Convert Pascal VOC annotations to YOLOv11 format, the bridge between labeling tools and modern detectors.",https://github.com/AliBgisrs/VOCtoYOLLO11,convert,
+2,Seed classification · hyperspectral,Classify seeds from hyperspectral image cubes for quality assessment and breeding pipelines.,https://github.com/AliBgisrs/Seed-Classification-Using-Hyperspectral-Image,layers,
+3,YoloStandCounting,YOLO-based plant stand counting from UAV imagery: automated emergence and stand assessment across plots.,https://github.com/AliBgisrs/YoloStandCounting,plant,
+4,PlotBoun,"Generate plot-boundary layers for field trials, the geometric backbone of plot-level phenotyping.",https://github.com/AliBgisrs/PlotBoun,grid,
+5,CornRowDetection,Detect corn rows from aerial imagery: row-level structure extraction for stand analysis and navigation.,https://github.com/AliBgisrs/Cornrowdetectio,rows,
+6,All 70+ repositories,Browse everything on GitHub at @AliBgisrs.,https://github.com/AliBgisrs?tab=repositories,github,all
