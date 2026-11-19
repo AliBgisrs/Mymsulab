@@ -12,13 +12,13 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231d241a'/%3E%3Cpath d='M12 44 L26 20 L34 32 L40 24 L52 44Z' fill='%23d9a441'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --ink:#1d241a; --ink-2:#2b3526; --cream:#f5f3ec; --paper:#fbfaf6; --sand:#e9e5d6; --line:#ddd8c8;
   --muted:#6b7261; --muted-2:#a8ad9a; --gold:#d9a441; --gold-2:#f0c46a; --rust:#b3452c; --green:#2e5339; --leaf:#4f8a4b;
   --serif:'Source Serif 4',Georgia,serif; --sans:'Archivo',system-ui,sans-serif; --mono:'JetBrains Mono',ui-monospace,monospace;
-  --radius:18px; --shadow:0 1px 2px rgba(29,36,26,.06),0 12px 32px -12px rgba(29,36,26,.22);
+  --radius:12px; --shadow:0 1px 2px rgba(29,36,26,.06),0 12px 32px -12px rgba(29,36,26,.22);
   --max:1240px; --gutter:clamp(16px,4vw,40px);
 }
 *{box-sizing:border-box}
@@ -31,23 +31,27 @@ a:hover{color:var(--rust)}
 ::selection{background:var(--gold);color:var(--ink)}
 :focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
 .wrap{max-width:var(--max);margin:0 auto;padding:0 var(--gutter)}
-.eyebrow{font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--rust);margin:0 0 14px}
-h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.12;margin:0;letter-spacing:-.01em}
+.eyebrow{font-size:11.5px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--rust);margin:0 0 14px}
+h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.12;margin:0;letter-spacing:-.01em;text-wrap:balance}
 h2{font-size:clamp(34px,4.4vw,52px)}
 h3{font-size:22px;line-height:1.25}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .lede{font-size:clamp(17px,1.5vw,19px);color:#3c4536;max-width:62ch}
 section{position:relative}
 .sec{padding:clamp(72px,10vw,128px) 0}
 .sec-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:20px 40px;margin-bottom:clamp(36px,5vw,56px)}
 .sec-head .lede{margin:14px 0 0}
+.hairline{border:0;border-top:1px solid var(--line);margin:0}
+[hidden]{display:none!important}
 
-/* ---------- recruit bar ---------- */
-.recruit{background:var(--gold);color:var(--ink);font-size:14px;font-weight:600;text-align:center;padding:9px 16px}
-.recruit a{color:var(--ink);text-decoration:underline;text-underline-offset:3px}
+/* ---------- recruit ticker ---------- */
+.recruit{background:var(--gold);color:var(--ink);font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-align:center;padding:7px 16px}
+.recruit a{color:var(--ink);text-decoration:underline;text-underline-offset:3px;font-weight:500}
 
-/* ---------- header ---------- */
+/* ---------- header + progress ---------- */
 header.top{position:sticky;top:0;z-index:60;background:rgba(245,243,236,.86);backdrop-filter:saturate(1.4) blur(12px);-webkit-backdrop-filter:saturate(1.4) blur(12px);border-bottom:1px solid transparent;transition:border-color .3s,background .3s}
 header.top.scrolled{border-bottom-color:var(--line);background:rgba(245,243,236,.94)}
+.progress{position:absolute;left:0;bottom:-1px;height:2px;width:100%;background:var(--gold);transform-origin:0 50%;transform:scaleX(0);will-change:transform}
 .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;height:68px}
 .brand{display:flex;align-items:center;gap:12px;color:var(--ink)}
 .brand:hover{color:var(--ink)}
@@ -56,9 +60,11 @@ header.top.scrolled{border-bottom-color:var(--line);background:rgba(245,243,236,
 .brand b{display:block;font-family:var(--serif);font-size:19px;line-height:1.1}
 .brand small{display:block;font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
 nav.main{display:flex;gap:2px}
-nav.main a{position:relative;padding:8px 12px;border-radius:999px;font-size:14px;font-weight:600;color:#3c4536;transition:background .2s,color .2s}
-nav.main a:hover{background:var(--sand);color:var(--ink)}
-nav.main a.active{background:var(--ink);color:var(--cream)}
+nav.main a{position:relative;padding:8px 12px;font-size:14px;font-weight:600;color:#3c4536;transition:color .2s}
+nav.main a::after{content:"";position:absolute;left:12px;right:12px;bottom:4px;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:0 50%;transition:transform .25s}
+nav.main a:hover{color:var(--ink)}
+nav.main a:hover::after,nav.main a.active::after{transform:scaleX(1)}
+nav.main a.active{color:var(--ink)}
 .menu-btn{display:none;width:44px;height:44px;border:1px solid var(--line);border-radius:12px;background:var(--paper);cursor:pointer;align-items:center;justify-content:center}
 .menu-btn span,.menu-btn span::before,.menu-btn span::after{display:block;width:18px;height:2px;background:var(--ink);border-radius:2px;position:relative;transition:transform .25s}
 .menu-btn span::before,.menu-btn span::after{content:"";position:absolute;left:0}
@@ -70,18 +76,33 @@ nav.main a.active{background:var(--ink);color:var(--cream)}
   .menu-btn{display:flex}
   nav.main{position:fixed;inset:68px 0 auto 0;flex-direction:column;gap:0;background:var(--cream);border-bottom:1px solid var(--line);padding:8px var(--gutter) 18px;transform:translateY(-8px);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;box-shadow:0 20px 40px -20px rgba(29,36,26,.35)}
   .menu-open nav.main{opacity:1;transform:none;pointer-events:auto}
-  nav.main a{padding:13px 12px;font-size:16px;border-radius:12px}
+  nav.main a{padding:13px 12px;font-size:16px}
+  nav.main a::after{display:none}
 }
 
+/* ---------- right rail ---------- */
+.rail{position:fixed;right:18px;top:50%;transform:translateY(-50%);z-index:50;display:none;flex-direction:column;gap:2px;mix-blend-mode:difference}
+@media (min-width:1100px){.rail{display:flex}}
+.rail a{display:flex;align-items:center;gap:10px;min-height:28px;padding:4px 8px;color:#fff;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;border-radius:8px}
+.rail a i{width:8px;height:8px;border-radius:50%;border:1.5px solid #fff;flex:none;transition:background .25s,transform .25s}
+.rail a span{opacity:0;transform:translateX(6px);transition:opacity .2s,transform .2s}
+.rail:hover a span,.rail a:focus-visible span,.rail a[aria-current] span{opacity:1;transform:none}
+.rail a[aria-current] i{background:#fff;transform:scale(1.25)}
+
 /* ---------- hero ---------- */
-.hero{position:relative;background:radial-gradient(120% 90% at 75% 60%,#2e3d29 0%,#1d241a 60%,#141a12 100%);color:var(--cream);overflow:hidden;min-height:min(92vh,860px);display:flex;align-items:center}
+.hero{position:relative;background:radial-gradient(120% 90% at 75% 60%,#2e3d29 0%,#1d241a 60%,#141a12 100%);color:var(--cream);overflow:hidden;min-height:min(94vh,900px);display:flex;flex-direction:column;justify-content:flex-end}
 #scene{position:absolute;inset:0;width:100%;height:100%;display:block}
-.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(20,26,18,.92) 0%,rgba(20,26,18,.6) 34%,rgba(20,26,18,0) 62%),linear-gradient(0deg,rgba(20,26,18,.85) 0%,rgba(20,26,18,0) 26%)}
-.hero > .wrap{position:relative;z-index:2;width:100%;padding-top:72px;padding-bottom:132px}
+.hero::after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(90deg,rgba(20,26,18,.78) 0%,rgba(20,26,18,.5) 34%,rgba(20,26,18,0) 62%),linear-gradient(0deg,rgba(20,26,18,.9) 0%,rgba(20,26,18,0) 32%)}
+.hero > .wrap{position:relative;z-index:2;width:100%;padding-top:clamp(72px,9vw,120px);padding-bottom:clamp(40px,6vw,72px)}
 .hero .eyebrow{color:var(--gold)}
-.hero h1{font-size:clamp(42px,6.4vw,84px);max-width:13ch;color:#fff}
-.hero h1 em{font-style:normal;color:var(--gold);background:linear-gradient(90deg,var(--gold),var(--gold-2));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
-.hero p.lede{color:#d7dacb;margin:22px 0 34px;max-width:50ch}
+.hero h1{font-size:clamp(56px,9vw,128px);line-height:.98;font-weight:600;color:#fff;max-width:none;letter-spacing:-.02em}
+.hero h1 .ln{display:block;overflow:hidden}
+.hero h1 .ln > span{display:block}
+.hero h1 .ln:nth-child(2){padding-left:1.5ch}
+.hero h1 .ln:nth-child(3){padding-left:3ch}
+.hero h1 em{font-style:italic;font-weight:600;color:var(--gold)}
+.hero .cta{margin:34px 0 22px}
+.hero p.lede{color:#d7dacb;margin:0;font-size:17px;max-width:42ch}
 .cta{display:flex;flex-wrap:wrap;gap:12px}
 .btn{display:inline-flex;align-items:center;gap:10px;min-height:48px;padding:0 22px;border-radius:999px;font-weight:600;font-size:15.5px;transition:transform .2s,background .2s,color .2s,box-shadow .2s}
 .btn:hover{transform:translateY(-2px)}
@@ -91,7 +112,7 @@ nav.main a.active{background:var(--ink);color:var(--cream)}
 .btn-ghost:hover{background:rgba(245,243,236,.1);color:#fff}
 .btn-dark{background:var(--ink);color:var(--cream)}
 .btn-dark:hover{background:var(--green);color:#fff}
-.hud{position:absolute;z-index:3;right:var(--gutter);top:28px;font-family:var(--mono);font-size:11.5px;color:#cfd3c2;background:rgba(20,26,18,.55);border:1px solid rgba(217,164,65,.28);border-radius:12px;padding:12px 14px;min-width:230px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+.hud{position:absolute;z-index:3;right:var(--gutter);top:28px;font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:11.5px;color:#cfd3c2;background:rgba(20,26,18,.55);border:1px solid rgba(217,164,65,.28);border-radius:12px;padding:12px 14px;min-width:230px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
 .hud .row{display:flex;justify-content:space-between;gap:18px}
 .hud .row b{color:#fff;font-weight:500}
 .hud .live{display:flex;align-items:center;gap:8px;color:var(--gold);font-weight:500;margin-bottom:6px;letter-spacing:.08em;text-transform:uppercase}
@@ -100,45 +121,48 @@ nav.main a.active{background:var(--ink);color:var(--cream)}
 .hud .ramp.zones{background:linear-gradient(90deg,var(--rust) 0 33%,var(--gold) 33% 66%,var(--leaf) 66%)}
 .hud .ends{display:flex;justify-content:space-between;color:var(--muted-2);font-size:10.5px}
 @keyframes pulse{70%{box-shadow:0 0 0 8px rgba(217,164,65,0)}100%{box-shadow:0 0 0 0 rgba(217,164,65,0)}}
-.stats{position:absolute;z-index:3;left:0;right:0;bottom:0;border-top:1px solid rgba(245,243,236,.12);background:rgba(20,26,18,.5);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
-.stats .wrap{display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:0 var(--gutter)}
-.stat{padding:20px 20px 22px 0}
-.stat+.stat{padding-left:20px;border-left:1px solid rgba(245,243,236,.1)}
-.stat b{display:block;font-family:var(--serif);font-size:clamp(26px,2.6vw,34px);color:var(--gold);line-height:1.1}
-.stat span{font-size:13.5px;color:#bfc4b1}
+
+/* legend strip: marquee + ramp */
+.strip{position:relative;z-index:3;background:var(--cream);color:var(--ink);border-top:1px solid var(--line);display:grid;grid-template-columns:1fr auto;align-items:center;min-height:56px}
+.marquee{overflow:hidden;white-space:nowrap;font-family:var(--mono);font-size:13px;letter-spacing:.04em;color:#3c4536;mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.marquee .track{display:inline-flex;gap:0;animation:marquee 70s linear infinite;will-change:transform}
+.marquee:hover .track{animation-play-state:paused}
+.marquee span{padding:0 14px}
+.marquee span::after{content:"·";color:var(--gold);margin-left:28px}
+@keyframes marquee{to{transform:translateX(-50%)}}
+.legend{display:flex;align-items:center;gap:12px;padding:0 var(--gutter) 0 24px;border-left:1px solid var(--line);height:56px;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.legend .ramp{width:110px;height:6px;border-radius:4px;background:linear-gradient(90deg,var(--rust),var(--gold),var(--leaf))}
 @media (max-width:760px){
   .hero{min-height:auto;display:block}
   #scene{height:400px}
   .hero::after{background:linear-gradient(180deg,rgba(20,26,18,0) 0,rgba(20,26,18,0) 240px,#1d241a 400px)}
   .hero > .wrap{padding-top:360px;padding-bottom:32px}
+  .hero h1 .ln:nth-child(2),.hero h1 .ln:nth-child(3){padding-left:0}
   .hud{top:14px;left:var(--gutter);right:auto;min-width:0;font-size:10.5px;padding:9px 11px}
   .hud .row:not(:nth-of-type(5)),.hud .ends{display:none}
-  .stats{position:relative}
-  .stats .wrap{grid-template-columns:1fr 1fr}
-  .stat{padding:16px 12px 16px 0}
-  .stat+.stat{padding-left:12px}
-  .stat:nth-child(3){padding-left:0;border-left:0}
-  .stat:nth-child(n+3){border-top:1px solid rgba(245,243,236,.1)}
+  .strip{grid-template-columns:1fr}
+  .legend{display:none}
 }
 
 /* ---------- approach: 3D layer stack ---------- */
 .approach{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(32px,6vw,80px);align-items:center}
-.steps{display:grid;gap:14px;margin-top:32px}
-.step{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:18px 20px;border-radius:var(--radius);border:1px solid var(--line);background:var(--paper);cursor:default;transition:border-color .25s,box-shadow .25s,transform .25s}
-.step .n{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-family:var(--serif);font-weight:700;font-size:20px;background:var(--sand);color:var(--ink);transition:background .25s,color .25s}
+.steps{display:grid;gap:0;margin-top:32px;border-top:1px solid var(--line)}
+.step{display:grid;grid-template-columns:44px 1fr;gap:16px;padding:20px 4px;border-bottom:1px solid var(--line);cursor:default;transition:background .25s,padding .25s}
+.step .n{width:44px;height:44px;display:grid;place-items:center;font-family:var(--mono);font-size:13px;color:var(--muted);transition:color .25s}
 .step h3{font-size:20px;margin-bottom:4px}
 .step p{margin:0;color:var(--muted);font-size:15.5px}
-.step.on{border-color:var(--gold);box-shadow:var(--shadow);transform:translateX(4px)}
-.step.on .n{background:var(--ink);color:var(--gold)}
+.step.on{padding-left:12px}
+.step.on .n{color:var(--rust)}
+.step.on h3{color:var(--rust)}
 .stack-stage{perspective:1400px;height:clamp(380px,44vw,520px);display:grid;place-items:center}
 .stack{position:relative;width:min(330px,70vw);aspect-ratio:1;transform-style:preserve-3d;transform:rotateX(58deg) rotateZ(-38deg);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
-.layer{position:absolute;inset:0;border-radius:16px;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.2,.8,.2,1),box-shadow .4s,outline-color .3s;box-shadow:0 30px 50px -20px rgba(29,36,26,.55);outline:2px solid transparent;outline-offset:4px}
+.layer{position:absolute;inset:0;border-radius:10px;transform-style:preserve-3d;transition:transform .8s cubic-bezier(.2,.8,.2,1),box-shadow .4s,outline-color .3s;box-shadow:0 30px 50px -20px rgba(29,36,26,.55);outline:2px solid transparent;outline-offset:4px}
 .layer .tag{position:absolute;left:12px;bottom:10px;font-family:var(--mono);font-size:11px;color:#fff;background:rgba(20,26,18,.6);padding:3px 8px;border-radius:6px}
 .l1{background:repeating-linear-gradient(90deg,#6f8f4f 0 9px,#58773f 9px 12px,#8a7a4c 12px 14px),#6f8f4f;transform:translateZ(0)}
-.l1::after{content:"";position:absolute;inset:0;border-radius:16px;background:radial-gradient(60% 50% at 30% 70%,rgba(214,190,120,.55),transparent 70%),radial-gradient(40% 40% at 75% 25%,rgba(40,70,35,.5),transparent 70%)}
+.l1::after{content:"";position:absolute;inset:0;border-radius:10px;background:radial-gradient(60% 50% at 30% 70%,rgba(214,190,120,.55),transparent 70%),radial-gradient(40% 40% at 75% 25%,rgba(40,70,35,.5),transparent 70%)}
 .l2{background:radial-gradient(38% 42% at 28% 30%,#4f8a4b,transparent 72%),radial-gradient(40% 36% at 74% 68%,#b3452c,transparent 72%),radial-gradient(46% 40% at 70% 22%,#6aa35a,transparent 70%),radial-gradient(50% 50% at 30% 78%,#d9a441,transparent 72%),#c9a24a;transform:translateZ(0)}
-.l3{background:conic-gradient(from 90deg at 50% 50%,transparent 0 0),linear-gradient(135deg,transparent 0 0);transform:translateZ(0);overflow:hidden}
-.l3 .grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(6,1fr);gap:3px;padding:3px;border-radius:16px;background:rgba(20,26,18,.85)}
+.l3{transform:translateZ(0);overflow:hidden}
+.l3 .grid{position:absolute;inset:0;display:grid;grid-template-columns:repeat(6,1fr);grid-template-rows:repeat(6,1fr);gap:3px;padding:3px;border-radius:10px;background:rgba(20,26,18,.85)}
 .l3 .grid i{border-radius:3px}
 .z1{background:var(--rust)}.z2{background:var(--gold)}.z3{background:var(--leaf)}
 .stack.open .l1{transform:translateZ(-90px)}
@@ -146,67 +170,74 @@ nav.main a.active{background:var(--ink);color:var(--cream)}
 .stack.focus-1 .l1,.stack.focus-2 .l2,.stack.focus-3 .l3{outline-color:var(--gold)}
 @media (max-width:900px){.approach{grid-template-columns:1fr}.stack-stage{order:-1}}
 
-/* ---------- research ---------- */
+/* ---------- research: numbered asymmetric spread ---------- */
 .dark{background:var(--ink);color:var(--cream)}
 .dark .eyebrow{color:var(--gold)}
 .dark .lede{color:#c9cdbd}
-.research-list{display:grid;gap:clamp(20px,3vw,28px)}
-.rcard{display:grid;grid-template-columns:1.1fr 1fr;gap:0;border-radius:24px;overflow:hidden;background:var(--ink-2);border:1px solid rgba(245,243,236,.08)}
-.rcard:nth-child(even){grid-template-columns:1fr 1.1fr}
-.rcard:nth-child(even) .rmedia{order:2}
-.rmedia{position:relative;min-height:280px;background:linear-gradient(135deg,#34432e,#1d241a);overflow:hidden}
-.rmedia img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
-.rcard:hover .rmedia img{transform:scale(1.05)}
-.rmedia .num{position:absolute;left:18px;top:14px;font-family:var(--serif);font-size:64px;font-weight:700;color:rgba(245,243,236,.9);text-shadow:0 4px 24px rgba(0,0,0,.4);line-height:1}
-.rbody{padding:clamp(24px,3.4vw,40px)}
-.rbody h3{font-size:clamp(22px,2.2vw,28px);color:#fff;margin-bottom:12px}
-.rbody p{color:#c9cdbd;margin:0 0 18px;font-size:16px}
+#research{clip-path:polygon(0 0,100% 40px,100% 100%,0 100%);padding-top:clamp(100px,12vw,160px)}
+.figures{display:grid;grid-template-columns:repeat(4,auto);gap:28px;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.fig b{display:block;font-family:var(--serif);font-size:clamp(26px,2.6vw,34px);color:var(--gold);line-height:1.1;font-weight:700}
+.fig span{display:block;font-size:11px;color:#bfc4b1;letter-spacing:.04em;max-width:16ch;line-height:1.4;margin-top:4px}
+@media (max-width:760px){.figures{grid-template-columns:1fr 1fr;gap:18px}}
+.research-list{display:grid;gap:clamp(56px,7vw,96px);margin-top:clamp(20px,3vw,36px)}
+.rrow{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);align-items:center;padding-top:clamp(28px,4vw,56px);border-top:1px solid rgba(245,243,236,.12)}
+.rrow:nth-child(even) .rmedia{order:-1}
+.rrow .ghost{position:absolute;left:-.04em;top:-.28em;font-family:var(--serif);font-weight:700;font-size:clamp(96px,14vw,180px);line-height:1;color:rgba(245,243,236,.07);pointer-events:none;user-select:none}
+.rrow:nth-child(even) .ghost{left:auto;right:0}
+.rtext{position:relative}
+.rtext h3{font-size:clamp(26px,2.8vw,40px);color:#fff;margin-bottom:14px}
+.rtext p{color:#c9cdbd;margin:0 0 18px;font-size:16.5px;max-width:55ch;text-align:justify;text-justify:inter-word;hyphens:auto;-webkit-hyphens:auto;text-wrap:pretty}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
-.chips li{font-size:12.5px;font-weight:600;padding:5px 11px;border-radius:999px;border:1px solid rgba(217,164,65,.4);color:var(--gold)}
-.metric{display:inline-flex;align-items:baseline;gap:8px;margin-bottom:16px;font-family:var(--mono);font-size:13px;color:#e8e4d4;background:rgba(217,164,65,.12);border:1px solid rgba(217,164,65,.3);padding:6px 10px;border-radius:8px}
+.chips li{font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;padding:5px 10px;border:1px solid rgba(217,164,65,.4);color:var(--gold)}
+.metric{display:inline-flex;align-items:baseline;gap:8px;margin-bottom:16px;font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:13px;color:#e8e4d4;background:rgba(217,164,65,.12);border:1px solid rgba(217,164,65,.3);padding:6px 10px;transition:transform .3s}
 .metric b{color:var(--gold);font-size:16px}
-@media (max-width:820px){.rcard,.rcard:nth-child(even){grid-template-columns:1fr}.rcard:nth-child(even) .rmedia{order:0}.rmedia{min-height:220px}}
-
-/* ---------- tilt cards ---------- */
-.tilt{transform-style:preserve-3d;transform:perspective(900px) rotateX(var(--rx,0deg)) rotateY(var(--ry,0deg)) translateZ(0);transition:transform .5s cubic-bezier(.2,.8,.2,1),box-shadow .3s,border-color .3s;will-change:transform}
-.tilt.tilting{transition:transform .08s linear,box-shadow .3s,border-color .3s}
-.tilt .glare{position:absolute;inset:0;border-radius:inherit;pointer-events:none;background:radial-gradient(420px circle at var(--gx,50%) var(--gy,50%),rgba(255,255,255,.35),transparent 45%);opacity:0;transition:opacity .3s;mix-blend-mode:soft-light}
-.tilt:hover .glare{opacity:1}
-.tilt .pop{transform:translateZ(36px)}
+.rrow:hover .metric{transform:translateY(-4px)}
+.rmedia{position:relative;aspect-ratio:4/3;background:linear-gradient(135deg,#34432e,#1d241a);overflow:hidden}
+.rmedia::after{content:"";position:absolute;inset:0;border:1px solid rgba(217,164,65,.6);transform:translate(12px,12px);pointer-events:none;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.rrow:hover .rmedia::after{transform:translate(8px,8px)}
+/* research media: the whole figure is always visible (contain); the frame adopts the image's own aspect ratio, clamped between 4:5 and 1.9:1, so charts and legends are never cropped */
+.rmedia img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;background:#f5f3ec;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.rrow:hover .rmedia img{transform:scale(1.015)}
+@media (max-width:820px){.rrow{grid-template-columns:1fr}.rrow:nth-child(even) .rmedia{order:0}.rrow .ghost{font-size:96px}}
 
 /* ---------- publications ---------- */
-.pubs{display:grid;gap:14px}
-.pub{position:relative;display:grid;grid-template-columns:88px 1fr auto;gap:22px;align-items:start;padding:22px 24px;border-radius:var(--radius);background:var(--paper);border:1px solid var(--line);color:var(--ink);transition:border-color .25s,box-shadow .25s,transform .25s}
-.pub:hover{border-color:var(--gold);box-shadow:var(--shadow);transform:translateY(-2px);color:var(--ink)}
-.pub .yr{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--rust);line-height:1.1}
+.pubs{display:grid;border-top:1px solid var(--line)}
+.pub{position:relative;display:grid;grid-template-columns:88px 1fr auto;gap:22px;align-items:start;padding:24px 4px;border-bottom:1px solid var(--line);color:var(--ink);transition:padding .25s,color .25s}
+.pub::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:0 50%;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.pub:hover{color:var(--ink);padding-left:12px}
+.pub:hover::after{transform:scaleX(1)}
+.pub .yr{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:15px;font-weight:500;color:var(--rust);padding-top:4px}
 .pub h3{font-size:19px;line-height:1.35;margin-bottom:6px}
 .pub .au{font-size:14.5px;color:var(--muted)}
-.pub .jr{display:inline-block;margin-top:8px;font-size:11.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--green);background:#e4ead9;padding:3px 9px;border-radius:6px}
+.pub .jr{display:inline-block;margin-top:8px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--green)}
 .pub .arrow{font-size:20px;color:var(--muted);transition:transform .25s,color .25s}
 .pub:hover .arrow{transform:translate(3px,-3px);color:var(--rust)}
-.pub.new::before{content:"New";position:absolute;top:-10px;left:22px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--gold);color:var(--ink);padding:2px 9px;border-radius:999px}
-@media (max-width:640px){.pub{grid-template-columns:1fr;gap:6px;padding:22px 18px}.pub .arrow{display:none}}
-.scholar{margin-top:22px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:22px 24px;border-radius:var(--radius);background:var(--sand)}
+.pub.new .yr::after{content:"New";display:inline-block;margin-left:8px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;background:var(--gold);color:var(--ink);padding:1px 7px;border-radius:999px;vertical-align:2px}
+@media (max-width:640px){.pub{grid-template-columns:1fr;gap:6px;padding:22px 4px}.pub .arrow{display:none}}
+.scholar{margin-top:28px;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px;padding:22px 24px;background:var(--sand)}
 .scholar p{margin:0;color:#3c4536}
 
 /* ---------- software ---------- */
 .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 @media (max-width:980px){.grid3{grid-template-columns:repeat(2,1fr)}}
 @media (max-width:620px){.grid3{grid-template-columns:1fr}}
-.card{position:relative;display:block;padding:26px;border-radius:var(--radius);background:var(--paper);border:1px solid var(--line);color:var(--ink)}
-.card:hover{color:var(--ink);border-color:var(--gold);box-shadow:var(--shadow)}
-.card .ico{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:var(--ink);color:var(--gold);margin-bottom:18px}
+.card{position:relative;display:block;padding:26px;border-radius:var(--radius);background:var(--paper);border:1px solid var(--line);color:var(--ink);overflow:hidden;transition:border-color .3s}
+.card::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--gold);transform:scaleX(0);transform-origin:0 50%;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.card:hover{color:var(--ink);border-color:var(--gold)}
+.card:hover::after{transform:scaleX(1)}
+.card .ico{width:40px;height:40px;display:grid;place-items:center;color:var(--ink);margin-bottom:18px}
 .card h3{font-size:20px;margin-bottom:8px}
 .card p{margin:0;color:var(--muted);font-size:15.5px}
-.card .go{margin-top:16px;font-size:13.5px;font-weight:600;color:var(--green)}
+.card .go{margin-top:16px;font-size:13.5px;font-weight:600;color:var(--green);transition:transform .25s;display:inline-block}
+.card:hover .go{transform:translateX(3px)}
 .card.all{background:var(--ink);color:var(--cream);border-color:var(--ink)}
 .card.all h3{color:#fff}.card.all p{color:#c9cdbd}.card.all .go{color:var(--gold)}
-.card.all .ico{background:var(--gold);color:var(--ink)}
+.card.all .ico{color:var(--gold)}
 
 /* ---------- team ---------- */
 .pi{display:grid;grid-template-columns:300px 1fr;gap:clamp(28px,5vw,56px);align-items:center;margin-bottom:48px}
-.portrait{position:relative;aspect-ratio:1;border-radius:28px;overflow:hidden;background:linear-gradient(135deg,var(--green),var(--ink));box-shadow:var(--shadow)}
-.portrait img{width:100%;height:100%;object-fit:cover}
+.portrait{position:relative;aspect-ratio:1;border-radius:var(--radius);overflow:hidden;background:linear-gradient(135deg,var(--green),var(--ink));box-shadow:var(--shadow)}
+.portrait img{display:block;width:100%;height:100%;object-fit:cover;object-position:50% 20%}
 .portrait .ini{position:absolute;inset:0;display:none;place-items:center;font-family:var(--serif);font-size:72px;color:var(--gold)}
 .portrait.noimg .ini{display:grid}
 .portrait.noimg img{display:none}
@@ -219,68 +250,97 @@ nav.main a.active{background:var(--ink);color:var(--cream)}
 .members{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 @media (max-width:900px){.members{grid-template-columns:1fr 1fr}}
 @media (max-width:560px){.members{grid-template-columns:1fr}}
-.member{position:relative;display:flex;gap:16px;align-items:center;padding:18px;border-radius:var(--radius);background:var(--paper);border:1px solid var(--line)}
-.member .portrait{width:72px;flex:none;border-radius:18px;box-shadow:none}
-.member .portrait .ini{font-size:26px}
-.member b{display:block;font-family:var(--serif);font-size:18px}
-.member span{display:block;font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.tier{grid-column:1/-1;display:flex;align-items:baseline;gap:16px;margin-top:22px}
+.tier:first-child{margin-top:0}
+.tier h3{font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--rust);white-space:nowrap}
+.tier .n{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.tier::after{content:"";flex:1;height:1px;background:var(--line)}
+.member.alum{background:transparent;border-style:dashed}
+.member.alum .portrait{filter:grayscale(1);opacity:.8}
+.member{position:relative;display:flex;gap:18px;align-items:center;padding:16px 18px;border-radius:var(--radius);background:var(--paper);border:1px solid var(--line)}
+.member .portrait{width:104px;flex:none;border-radius:50%;box-shadow:0 0 0 1px var(--line)}
+.member .portrait .ini{font-size:36px}
+.member b{display:block;font-family:var(--serif);font-size:19px}
+.member span{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--rust)}
 .member small{display:block;font-size:14px;color:#3c4536}
-.member.open{border-style:dashed;border-color:#c9bf9f;background:transparent;color:var(--ink)}
-.member.open:hover{border-color:var(--gold);background:var(--paper);color:var(--ink)}
-.member.open .portrait{display:grid;place-items:center;background:var(--sand);color:var(--rust);font-size:30px;font-weight:300}
-.join{margin-top:48px;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:28px;padding:clamp(26px,4vw,44px);border-radius:28px;background:var(--ink);color:var(--cream);position:relative;overflow:hidden}
+.member.alum .portrait{width:84px}
+.positions{margin-top:28px;display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:center;padding:22px 26px;border:1px solid var(--line);background:var(--paper)}
+.positions .k{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--rust)}
+.positions ul{margin:0;padding:0;list-style:none;display:flex;flex-wrap:wrap;gap:10px 28px}
+.positions li{position:relative;padding-left:18px;font-size:15.5px}
+.positions li::before{content:"";position:absolute;left:0;top:11px;width:7px;height:7px;background:var(--gold);transform:rotate(45deg)}
+.positions li small{display:block;color:var(--muted);font-size:13.5px}
+@media (max-width:820px){.positions{grid-template-columns:1fr}}
+.join{margin-top:48px;display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:28px;padding:clamp(26px,4vw,44px);background:var(--ink);color:var(--cream);position:relative;overflow:hidden}
 .join::before{content:"";position:absolute;right:-120px;top:-120px;width:360px;height:360px;border-radius:50%;background:radial-gradient(circle,rgba(217,164,65,.35),transparent 65%)}
 .join h3{font-size:clamp(26px,2.6vw,34px);color:#fff;margin-bottom:12px}
 .join p{color:#c9cdbd;margin:0 0 20px}
-.join h4{margin:0 0 10px;font-size:12.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+.join h4{margin:0 0 10px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);font-weight:500}
 .join ul{margin:0;padding:0;list-style:none;display:grid;gap:9px}
 .join li{position:relative;padding-left:20px;color:#e2e0d3;font-size:15.5px}
 .join li::before{content:"";position:absolute;left:0;top:10px;width:8px;height:8px;border-radius:2px;background:var(--gold);transform:rotate(45deg)}
 @media (max-width:900px){.join{grid-template-columns:1fr}}
 
 /* ---------- news ---------- */
-.timeline{position:relative;display:grid;gap:18px;padding-left:28px}
-.timeline::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:linear-gradient(var(--gold),var(--line))}
-.ev{position:relative;padding:20px 24px;border-radius:var(--radius);background:var(--paper);border:1px solid var(--line)}
-.ev::before{content:"";position:absolute;left:-28px;top:26px;width:14px;height:14px;border-radius:50%;background:var(--cream);border:3px solid var(--gold)}
-.ev time{font-size:12.5px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--rust)}
-.ev h3{font-size:20px;margin:4px 0 6px}
+.timeline{display:grid;border-top:1px solid var(--line)}
+.ev{display:grid;grid-template-columns:110px 1fr;gap:24px;padding:22px 4px;border-bottom:1px solid var(--line)}
+.ev time{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:12.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--rust);padding-top:5px}
+.ev h3{font-size:20px;margin:0 0 6px}
 .ev p{margin:0;color:var(--muted);font-size:15.5px}
+@media (max-width:560px){.ev{grid-template-columns:1fr;gap:4px}}
 
-/* ---------- equipment ---------- */
-.eq .card{min-height:190px;overflow:hidden}
-.eq .card .spec{position:absolute;right:18px;top:20px;font-family:var(--mono);font-size:11px;color:var(--muted-2)}
+/* ---------- equipment: spec sheet ---------- */
+.speclist{display:grid;border-top:1px solid var(--line)}
+.spec{display:grid;grid-template-columns:40px 1fr auto;gap:22px;align-items:center;padding:20px 4px;border-bottom:1px solid var(--line);transition:padding .25s}
+.spec:hover{padding-left:12px}
+.spec .ico{width:40px;height:40px;display:grid;place-items:center;color:var(--ink)}
+.spec h3{font-size:19px;margin-bottom:2px}
+.spec p{margin:0;color:var(--muted);font-size:15px}
+.spec .sp{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:11.5px;letter-spacing:.06em;color:var(--rust);text-align:right;white-space:nowrap}
+@media (max-width:560px){.spec{grid-template-columns:40px 1fr}.spec .sp{grid-column:2;text-align:left}}
 
 /* ---------- contact ---------- */
 .contact{display:grid;grid-template-columns:1.1fr 1fr;gap:clamp(28px,5vw,64px);align-items:start}
-.contact .box{padding:clamp(24px,3vw,34px);border-radius:24px;background:var(--paper);border:1px solid var(--line)}
-.contact address{font-style:normal;line-height:1.75;color:#3c4536}
-.contact .mail{display:inline-block;margin:18px 0 6px;font-family:var(--serif);font-size:clamp(22px,2.6vw,30px);font-weight:700;color:var(--ink);border-bottom:2px solid var(--gold)}
-.contact .mail:hover{color:var(--rust)}
-.contact .note{font-size:14.5px;color:var(--muted);margin:10px 0 0}
+.contact .box{padding:clamp(24px,3vw,34px);background:var(--ink-2);border:1px solid rgba(245,243,236,.1)}
+.contact address{font-style:normal;line-height:1.75;color:#d7dacb}
+.contact .mail{display:inline-block;margin:18px 0 6px;font-family:var(--serif);font-size:clamp(22px,3vw,38px);font-weight:700;color:#fff;border-bottom:2px solid var(--gold);word-break:break-all}
+.contact .mail:hover{color:var(--gold)}
+.contact .note{font-size:14.5px;color:#a8ad9a;margin:10px 0 0}
 @media (max-width:820px){.contact{grid-template-columns:1fr}}
 
 footer{background:#141a12;color:#a8ad9a;font-size:14px}
-footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;padding-top:28px;padding-bottom:28px}
+footer .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:24px;padding-top:36px;padding-bottom:36px}
 footer a{color:#d7dacb}
 footer a:hover{color:var(--gold)}
-footer nav{display:flex;gap:18px}
+footer nav{display:flex;flex-direction:column;gap:8px}
+footer .k{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+footer .coords{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:12.5px;color:#d7dacb}
+@media (max-width:700px){footer .wrap{grid-template-columns:1fr}}
 
 /* ---------- reveal ---------- */
 .rv{opacity:0;transform:translateY(22px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
 .rv.in{opacity:1;transform:none}
+.hero h1 .ln > span{transform:translateY(110%);transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.hero h1 .ln:nth-child(2) > span{transition-delay:.12s}
+.hero h1 .ln:nth-child(3) > span{transition-delay:.24s}
+.ready .hero h1 .ln > span{transform:none}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .rv{opacity:1;transform:none;transition:none}
-  .tilt,.stack,.layer{transition:none}
+  .hero h1 .ln > span{transform:none;transition:none}
+  .stack,.layer{transition:none}
   .hud .live i{animation:none}
+  .marquee .track{animation:none}
+  .marquee{white-space:normal;mask-image:none;padding:10px var(--gutter)}
+  .marquee .track{display:flex;flex-wrap:wrap}
+  .marquee .track[aria-hidden]{display:none}
 }
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
 </head>
 <body>
 
-<div class="recruit">Recruiting Ph.D. and M.S. students for Spring 2027 · <a href="#team">Join the lab →</a></div>
+<div class="recruit" data-setting-recruit>Recruiting Ph.D. and M.S. students · Spring 2027 · <a href="#team">Join the lab →</a></div>
 
 <header class="top" id="top">
   <div class="wrap bar">
@@ -290,17 +350,26 @@ footer nav{display:flex;gap:18px}
     </a>
     <button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="nav"><span></span></button>
     <nav class="main" id="nav" aria-label="Main">
-      <a href="#home">Home</a>
       <a href="#research">Research</a>
       <a href="#publications">Publications</a>
       <a href="#software">Software</a>
       <a href="#team">Team</a>
-      <a href="#news">News</a>
-      <a href="#equipment">Equipment</a>
       <a href="#contact">Contact</a>
     </nav>
   </div>
+  <div class="progress" id="progress" aria-hidden="true"></div>
 </header>
+
+<nav class="rail" id="rail" aria-label="Sections">
+  <a href="#approach"><i></i><span>01 Approach</span></a>
+  <a href="#research"><i></i><span>02 Research</span></a>
+  <a href="#publications"><i></i><span>03 Publications</span></a>
+  <a href="#software"><i></i><span>04 Software</span></a>
+  <a href="#team"><i></i><span>05 Team</span></a>
+  <a href="#news"><i></i><span>06 News</span></a>
+  <a href="#equipment"><i></i><span>07 Equipment</span></a>
+  <a href="#contact"><i></i><span>08 Contact</span></a>
+</nav>
 
 <main>
 <!-- ================= HERO ================= -->
@@ -317,20 +386,18 @@ footer nav{display:flex;gap:18px}
   </div>
   <div class="wrap">
     <p class="eyebrow">ABZN Lab · Precision Agriculture · Montana State University</p>
-    <h1>From drone pixels to <em>field decisions.</em></h1>
-    <p class="lede">We combine UAV and satellite remote sensing, GIS, and machine learning to turn imagery into decisions, from high-throughput crop phenotyping to mapping irrigation across whole regions.</p>
+    <h1><span class="ln"><span>From drone pixels</span></span><span class="ln"><span>to field</span></span><span class="ln"><span><em>decisions.</em></span></span></h1>
     <div class="cta">
       <a class="btn btn-gold" href="#research">Explore the research <span aria-hidden="true">→</span></a>
       <a class="btn btn-ghost" href="https://scholar.google.com/citations?hl=en&amp;user=aPv6QYgAAAAJ" target="_blank" rel="noopener">Google Scholar ↗</a>
     </div>
+    <p class="lede">UAV and satellite remote sensing, GIS, and machine learning, turning imagery into decisions from single plots to whole regions.</p>
   </div>
-  <div class="stats">
-    <div class="wrap">
-      <div class="stat"><b data-count="0.94" data-dec="2">0.94</b><span>F1 mapping center-pivot irrigation</span></div>
-      <div class="stat"><b data-count="0.972" data-dec="3">0.972</b><span>R² for UAS stand counting (YOLOv12)</span></div>
-      <div class="stat"><b data-count="70" data-suffix="+">70+</b><span>Open-source repositories</span></div>
-      <div class="stat"><b data-count="100" data-suffix="+">100+</b><span>Citations across peer-reviewed work</span></div>
+  <div class="strip">
+    <div class="marquee" aria-label="What the lab measures">
+      <div class="track" id="marquee"><span>NDVI</span><span>NDRE</span><span>canopy temperature</span><span>plant height</span><span>stand count</span><span>center-pivot irrigation</span><span>dry pea</span><span>dry bean</span><span>wheat</span><span>Sentinel-2</span><span>Landsat 8</span><span>NAIP</span><span>hyperspectral 400–1000 nm</span><span>LiDAR</span><span>YOLOv11 · YOLOv12</span><span>prescription maps</span></div>
     </div>
+    <div class="legend"><span>low vigor</span><div class="ramp"></div><span>high vigor</span></div>
   </div>
 </section>
 
@@ -342,9 +409,9 @@ footer nav{display:flex;gap:18px}
       <h2 id="approach-h">Descriptive → predictive → prescriptive</h2>
       <p class="lede" style="margin-top:14px">Every project moves through the same three layers. Hover a step to see where it sits in the stack.</p>
       <div class="steps" id="steps">
-        <div class="step" data-l="1" tabindex="0"><div class="n">1</div><div><h3>Sensing</h3><p>UAVs and satellites capture multispectral, hyperspectral, thermal and LiDAR data over fields.</p></div></div>
-        <div class="step" data-l="2" tabindex="0"><div class="n">2</div><div><h3>Modeling</h3><p>Machine and deep learning turn imagery into traits, yield and maps, from plot to regional scale.</p></div></div>
-        <div class="step" data-l="3" tabindex="0"><div class="n">3</div><div><h3>Deciding</h3><p>Predictions become decisions: breeding selections, irrigation management, input prescriptions.</p></div></div>
+        <div class="step" data-l="1" tabindex="0"><div class="n">01</div><div><h3>Sensing</h3><p>UAVs and satellites capture multispectral, hyperspectral, thermal and LiDAR data over fields.</p></div></div>
+        <div class="step" data-l="2" tabindex="0"><div class="n">02</div><div><h3>Modeling</h3><p>Machine and deep learning turn imagery into traits, yield and maps, from plot to regional scale.</p></div></div>
+        <div class="step" data-l="3" tabindex="0"><div class="n">03</div><div><h3>Deciding</h3><p>Predictions become decisions: breeding selections, irrigation management, input prescriptions.</p></div></div>
       </div>
     </div>
     <div class="stack-stage" aria-hidden="true">
@@ -366,41 +433,51 @@ footer nav{display:flex;gap:18px}
         <h2 id="research-h">Methods that scale, from plots to regions</h2>
         <p class="lede">The lab works where remote sensing, GeoAI and agronomy meet. We validate on research plots and deploy across producer fields and whole regions.</p>
       </div>
+      <div class="figures" data-list="stats">
+        <div class="fig"><b data-count="0.94" data-dec="2">0.94</b><span>F1 mapping center-pivot irrigation</span></div>
+        <div class="fig"><b data-count="0.972" data-dec="3">0.972</b><span>R² for UAS stand counting (YOLOv12)</span></div>
+        <div class="fig"><b data-count="70" data-suffix="+">70+</b><span>Open-source repositories</span></div>
+        <div class="fig"><b data-count="100" data-suffix="+">100+</b><span>Citations across peer-reviewed work</span></div>
+      </div>
     </div>
-    <div class="research-list">
-      <article class="rcard rv">
-        <div class="rmedia"><img src="assets/research-1.webp" alt="Center-pivot irrigation systems detected in satellite imagery" loading="lazy" onerror="this.remove()"><span class="num">01</span></div>
-        <div class="rbody">
+    <div class="research-list" data-list="research">
+      <article class="rrow rv">
+        <span class="ghost" aria-hidden="true">01</span>
+        <div class="rtext">
           <h3>Irrigation mapping with deep learning</h3>
           <div class="metric">YOLOv11 · <b>0.98</b> precision · <b>0.94</b> F1</div>
           <p>Automated detection of center-pivot irrigation systems from Landsat 8, Sentinel-2 and NAIP imagery. A custom ArcGIS tool handles data prep and large-scale inference. YOLOv11 outperformed U-Net, Faster R-CNN and Mask R-CNN, a step toward sustainable groundwater management in semi-arid regions.</p>
           <ul class="chips"><li>YOLOv11</li><li>Sentinel-2</li><li>ArcGIS</li><li>Water management</li></ul>
         </div>
+        <div class="rmedia"><img src="assets/research-1.webp" alt="Center-pivot irrigation systems detected in satellite imagery" loading="lazy" onerror="this.remove()"></div>
       </article>
-      <article class="rcard rv">
-        <div class="rmedia"><img src="assets/research-2.webp" alt="UAS imagery of field crop plots" loading="lazy" onerror="this.remove()"><span class="num">02</span></div>
-        <div class="rbody">
+      <article class="rrow rv">
+        <span class="ghost" aria-hidden="true">02</span>
+        <div class="rtext">
           <h3>UAS phenotyping of field crops</h3>
           <div class="metric">YOLOv12 stand counts · R² <b>0.972</b></div>
           <p>Multispectral data integration and stacked ensemble learning to estimate yield, protein and maturity in dry peas; YOLOv12 segmentation for dry bean stand counting; and a synthesis of 211 studies on measuring above-ground biomass with UAS sensors, from RGB to hyperspectral and LiDAR.</p>
           <ul class="chips"><li>Multispectral</li><li>Ensemble learning</li><li>Dry pea · dry bean</li><li>Biomass</li></ul>
         </div>
+        <div class="rmedia"><img src="assets/research-2.webp" alt="UAS imagery of field crop plots" loading="lazy" onerror="this.remove()"></div>
       </article>
-      <article class="rcard rv">
-        <div class="rmedia"><img src="assets/research-3.webp" alt="Hyperspectral seed imaging" loading="lazy" onerror="this.remove()"><span class="num">03</span></div>
-        <div class="rbody">
+      <article class="rrow rv">
+        <span class="ghost" aria-hidden="true">03</span>
+        <div class="rtext">
           <h3>Hyperspectral imaging &amp; seed quality</h3>
           <p>Classifying seeds and assessing quality traits from hyperspectral imagery, bringing lab-grade spectroscopy into high-throughput pipelines for breeding programs and seed-industry partners.</p>
           <ul class="chips"><li>Hyperspectral</li><li>Classification</li><li>Seed quality</li></ul>
         </div>
+        <div class="rmedia"><img src="assets/research-3.webp" alt="Hyperspectral seed imaging" loading="lazy" onerror="this.remove()"></div>
       </article>
-      <article class="rcard rv">
-        <div class="rmedia"><img src="assets/research-4.webp" alt="Montana cropland" loading="lazy" onerror="this.remove()"><span class="num">04</span></div>
-        <div class="rbody">
+      <article class="rrow rv">
+        <span class="ghost" aria-hidden="true">04</span>
+        <div class="rtext">
           <h3>Precision agriculture for Montana</h3>
           <p>A producer-engaged program at MSU: decision-support tools, variable-rate strategies and on-farm experimentation tuned to the dryland and irrigated systems of the Northern Great Plains.</p>
           <ul class="chips"><li>Decision support</li><li>On-farm trials</li><li>Variable rate</li><li>Montana</li></ul>
         </div>
+        <div class="rmedia"><img src="assets/research-4.webp" alt="Montana cropland" loading="lazy" onerror="this.remove()"></div>
       </article>
     </div>
   </div>
@@ -416,7 +493,7 @@ footer nav{display:flex;gap:18px}
         <p class="lede">A selection of peer-reviewed work. The full, current list is on Google Scholar.</p>
       </div>
     </div>
-    <div class="pubs">
+    <div class="pubs" data-list="publications">
       <a class="pub new rv" href="https://lnkd.in/eFu2vYuh" target="_blank" rel="noopener">
         <div class="yr">2026</div>
         <div><h3>Pixel-level supervision resolves overlap: Benchmarking YOLOv12 segmentation for accurate multi-cluster dry bean stand counting from time series unoccupied aerial systems imagery</h3><div class="au">Bazrafkan A. et al.</div><span class="jr">The Plant Phenome Journal · open access</span></div>
@@ -460,25 +537,25 @@ footer nav{display:flex;gap:18px}
         <p class="lede">Over 70 open repositories of GIS, remote sensing and phenotyping tools, built for real workflows and shared freely.</p>
       </div>
     </div>
-    <div class="grid3">
-      <a class="card tilt rv" href="https://github.com/AliBgisrs/VOCtoYOLLO11" target="_blank" rel="noopener"><span class="glare"></span><div class="pop">
-        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><path d="M10 6.5h4a3 3 0 0 1 3 3V14"/></svg></div>
-        <h3>VOCtoYOLO11</h3><p>Convert Pascal VOC annotations to YOLOv11 format, the bridge between labeling tools and modern detectors.</p><div class="go">View on GitHub ↗</div></div></a>
-      <a class="card tilt rv" href="https://github.com/AliBgisrs/Seed-Classification-Using-Hyperspectral-Image" target="_blank" rel="noopener"><span class="glare"></span><div class="pop">
-        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 7l8-4 8 4-8 4z"/><path d="M4 12l8 4 8-4"/><path d="M4 17l8 4 8-4"/></svg></div>
-        <h3>Seed classification · hyperspectral</h3><p>Classify seeds from hyperspectral image cubes for quality assessment and breeding pipelines.</p><div class="go">View on GitHub ↗</div></div></a>
-      <a class="card tilt rv" href="https://github.com/AliBgisrs/YoloStandCounting" target="_blank" rel="noopener"><span class="glare"></span><div class="pop">
-        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21V10"/><path d="M12 14c0-4-3-6-7-6 0 4 3 6 7 6z"/><path d="M12 10c0-4 3-6 7-6 0 4-3 6-7 6z"/></svg></div>
-        <h3>YoloStandCounting</h3><p>YOLO-based plant stand counting from UAV imagery: automated emergence and stand assessment across plots.</p><div class="go">View on GitHub ↗</div></div></a>
-      <a class="card tilt rv" href="https://github.com/AliBgisrs/PlotBoun" target="_blank" rel="noopener"><span class="glare"></span><div class="pop">
-        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg></div>
-        <h3>PlotBoun</h3><p>Generate plot-boundary layers for field trials, the geometric backbone of plot-level phenotyping.</p><div class="go">View on GitHub ↗</div></div></a>
-      <a class="card tilt rv" href="https://github.com/AliBgisrs/Cornrowdetectio" target="_blank" rel="noopener"><span class="glare"></span><div class="pop">
-        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 21V3M10 21V3M15 21V3M20 21V3" stroke-dasharray="2.5 2"/></svg></div>
-        <h3>CornRowDetection</h3><p>Detect corn rows from aerial imagery: row-level structure extraction for stand analysis and navigation.</p><div class="go">View on GitHub ↗</div></div></a>
-      <a class="card all tilt rv" href="https://github.com/AliBgisrs?tab=repositories" target="_blank" rel="noopener"><span class="glare"></span><div class="pop">
-        <div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 2.9.8.1-.7.4-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg></div>
-        <h3>All 70+ repositories</h3><p>Browse everything on GitHub at @AliBgisrs.</p><div class="go">Open GitHub →</div></div></a>
+    <div class="grid3" data-list="software">
+      <a class="card rv" href="https://github.com/AliBgisrs/VOCtoYOLLO11" target="_blank" rel="noopener">
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><path d="M10 6.5h4a3 3 0 0 1 3 3V14"/></svg></div>
+        <h3>VOCtoYOLO11</h3><p>Convert Pascal VOC annotations to YOLOv11 format, the bridge between labeling tools and modern detectors.</p><div class="go">View on GitHub ↗</div></a>
+      <a class="card rv" href="https://github.com/AliBgisrs/Seed-Classification-Using-Hyperspectral-Image" target="_blank" rel="noopener">
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 7l8-4 8 4-8 4z"/><path d="M4 12l8 4 8-4"/><path d="M4 17l8 4 8-4"/></svg></div>
+        <h3>Seed classification · hyperspectral</h3><p>Classify seeds from hyperspectral image cubes for quality assessment and breeding pipelines.</p><div class="go">View on GitHub ↗</div></a>
+      <a class="card rv" href="https://github.com/AliBgisrs/YoloStandCounting" target="_blank" rel="noopener">
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21V10"/><path d="M12 14c0-4-3-6-7-6 0 4 3 6 7 6z"/><path d="M12 10c0-4 3-6 7-6 0 4-3 6-7 6z"/></svg></div>
+        <h3>YoloStandCounting</h3><p>YOLO-based plant stand counting from UAV imagery: automated emergence and stand assessment across plots.</p><div class="go">View on GitHub ↗</div></a>
+      <a class="card rv" href="https://github.com/AliBgisrs/PlotBoun" target="_blank" rel="noopener">
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg></div>
+        <h3>PlotBoun</h3><p>Generate plot-boundary layers for field trials, the geometric backbone of plot-level phenotyping.</p><div class="go">View on GitHub ↗</div></a>
+      <a class="card rv" href="https://github.com/AliBgisrs/Cornrowdetectio" target="_blank" rel="noopener">
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 21V3M10 21V3M15 21V3M20 21V3" stroke-dasharray="2.5 2"/></svg></div>
+        <h3>CornRowDetection</h3><p>Detect corn rows from aerial imagery: row-level structure extraction for stand analysis and navigation.</p><div class="go">View on GitHub ↗</div></a>
+      <a class="card all rv" href="https://github.com/AliBgisrs?tab=repositories" target="_blank" rel="noopener">
+        <div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 2.9.8.1-.7.4-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg></div>
+        <h3>All 70+ repositories</h3><p>Browse everything on GitHub at @AliBgisrs.</p><div class="go">Open GitHub →</div></a>
     </div>
   </div>
 </section>
@@ -489,8 +566,8 @@ footer nav{display:flex;gap:18px}
     <div class="sec-head rv">
       <div><p class="eyebrow">We're hiring</p><h2 id="team-h">The team</h2></div>
     </div>
-    <div class="pi rv">
-      <div class="portrait tilt"><img src="assets/pi.png" alt="Portrait of Dr. Ali Bazrafkan" onerror="this.parentNode.classList.add('noimg')"><span class="ini">AB</span><span class="glare"></span></div>
+    <div class="pi rv" data-list="pi">
+      <div class="portrait tilt"><img src="assets/pi.png" alt="Portrait of Dr. Ali Bazrafkan" onerror="this.parentNode.classList.add('noimg')"><span class="ini">AB</span></div>
       <div>
         <p class="eyebrow" style="margin-bottom:8px">Principal investigator</p>
         <h3>Dr. Ali Bazrafkan</h3>
@@ -503,19 +580,20 @@ footer nav{display:flex;gap:18px}
         </div>
       </div>
     </div>
-    <div class="members">
+    <div class="members" data-list="members">
+      <div class="tier rv"><h3>Ph.D. students</h3><span class="n">01</span></div>
       <div class="member rv">
         <div class="portrait"><img src="assets/student-raihanul.png" alt="Portrait of Md. Raihanul Islam" onerror="this.parentNode.classList.add('noimg')"><span class="ini">RI</span></div>
         <div><span>Ph.D. student</span><b>Md. Raihanul Islam</b><small>High-throughput phenotyping</small></div>
       </div>
-      <a class="member open rv" href="#contact">
-        <div class="portrait" aria-hidden="true">+</div>
-        <div><span>Ph.D. position · open</span><b>This could be you</b><small>GeoAI &amp; remote sensing</small></div>
-      </a>
-      <a class="member open rv" href="#contact">
-        <div class="portrait" aria-hidden="true">+</div>
-        <div><span>M.S. position · open</span><b>This could be you</b><small>Precision agriculture</small></div>
-      </a>
+    </div>
+    <div class="positions rv" data-list="positions" data-hiring>
+      <span class="k">Open positions · Spring 2027</span>
+      <ul>
+        <li>Ph.D. position<small>GeoAI &amp; remote sensing</small></li>
+        <li>M.S. position<small>Precision agriculture</small></li>
+      </ul>
+      <a class="btn btn-dark" href="#contact">Apply →</a>
     </div>
     <div class="join rv">
       <div>
@@ -539,26 +617,26 @@ footer nav{display:flex;gap:18px}
 <section class="sec" id="news" aria-labelledby="news-h" style="background:var(--paper);border-top:1px solid var(--line);border-bottom:1px solid var(--line)">
   <div class="wrap" style="max-width:900px">
     <div class="sec-head rv"><div><p class="eyebrow">Lab updates</p><h2 id="news-h">News</h2></div></div>
-    <div class="timeline">
-      <div class="ev rv"><time>2026</time><h3>Joining Montana State University</h3><p>Dr. Bazrafkan starts as Tenure-Track Assistant Professor of Precision Agriculture at MSU. The ABZN Lab opens in Bozeman and is recruiting its first graduate students.</p></div>
-      <div class="ev rv"><time>2026</time><h3>Paper: YOLOv12 dry bean stand counting</h3><p>Published in The Plant Phenome Journal: segmentation beats detection and thresholding for counting overlapping plants from low-cost RGB drone imagery (R² = 0.972), deployed as a web app for non-programmers.</p></div>
-      <div class="ev rv"><time>2026</time><h3>Paper: automated center-pivot irrigation mapping</h3><p>Out in Remote Sensing: YOLOv11 reaches 0.98 precision across Landsat 8, Sentinel-2 and NAIP imagery.</p></div>
-      <div class="ev rv"><time>Earlier</time><h3>Dry pea phenotyping studies published</h3><p>Yield and protein estimation with multispectral data integration and ensemble learning, and dry pea maturity prediction with UAS sensor fusion.</p></div>
+    <div class="timeline" data-list="news">
+      <div class="ev rv"><time>2026</time><div><h3>Joining Montana State University</h3><p>Dr. Bazrafkan starts as Tenure-Track Assistant Professor of Precision Agriculture at MSU. The ABZN Lab opens in Bozeman and is recruiting its first graduate students.</p></div></div>
+      <div class="ev rv"><time>2026</time><div><h3>Paper: YOLOv12 dry bean stand counting</h3><p>Published in The Plant Phenome Journal: segmentation beats detection and thresholding for counting overlapping plants from low-cost RGB drone imagery (R² = 0.972), deployed as a web app for non-programmers.</p></div></div>
+      <div class="ev rv"><time>2026</time><div><h3>Paper: automated center-pivot irrigation mapping</h3><p>Out in Remote Sensing: YOLOv11 reaches 0.98 precision across Landsat 8, Sentinel-2 and NAIP imagery.</p></div></div>
+      <div class="ev rv"><time>Earlier</time><div><h3>Dry pea phenotyping studies published</h3><p>Yield and protein estimation with multispectral data integration and ensemble learning, and dry pea maturity prediction with UAS sensor fusion.</p></div></div>
     </div>
   </div>
 </section>
 
 <!-- ================= EQUIPMENT ================= -->
-<section class="sec eq" id="equipment" aria-labelledby="eq-h">
+<section class="sec" id="equipment" aria-labelledby="eq-h">
   <div class="wrap">
     <div class="sec-head rv"><div><p class="eyebrow">Instruments &amp; platforms</p><h2 id="eq-h">Lab equipment</h2><p class="lede">The platforms and sensors the ABZN Lab flies, carries and computes with.</p></div></div>
-    <div class="grid3">
-      <div class="card tilt rv"><span class="glare"></span><span class="spec">AIR</span><div class="pop"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><circle cx="5" cy="5" r="2.4"/><circle cx="19" cy="5" r="2.4"/><circle cx="5" cy="19" r="2.4"/><circle cx="19" cy="19" r="2.4"/><path d="M7 7l2.5 2.5M17 7l-2.5 2.5M7 17l2.5-2.5M17 17l-2.5-2.5"/></svg></div><h3>UAV platform</h3><p>Multirotor drone for field campaigns and plot-level imaging.</p></div></div>
-      <div class="card tilt rv"><span class="glare"></span><span class="spec">VIS–NIR</span><div class="pop"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 6l1.5-2.5h5L16 6"/></svg></div><h3>Multispectral camera</h3><p>Calibrated multispectral imaging for vegetation indices and trait estimation.</p></div></div>
-      <div class="card tilt rv"><span class="glare"></span><span class="spec">400–1000 nm</span><div class="pop"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 12c2-6 4-6 6 0s4 6 6 0 4-6 6 0"/></svg></div><h3>Hyperspectral sensor</h3><p>Narrow-band spectroscopy for seed quality and crop stress analysis.</p></div></div>
-      <div class="card tilt rv"><span class="glare"></span><span class="spec">LWIR</span><div class="pop"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3a2.5 2.5 0 0 0-2.5 2.5v8.2a4.5 4.5 0 1 0 5 0V5.5A2.5 2.5 0 0 0 12 3z"/><path d="M12 10v7"/></svg></div><h3>Thermal camera</h3><p>Canopy temperature mapping for water stress and irrigation studies.</p></div></div>
-      <div class="card tilt rv"><span class="glare"></span><span class="spec">3D</span><div class="pop"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v4M12 3l-4 16M12 3l4 16M4 19h16"/><circle cx="12" cy="3" r="1.2" fill="currentColor"/></svg></div><h3>LiDAR</h3><p>3D canopy structure and plant height at plot scale.</p></div></div>
-      <div class="card tilt rv"><span class="glare"></span><span class="spec">CUDA</span><div class="pop"><div class="ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="5" y="5" width="14" height="14" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg></div><h3>GPU workstation</h3><p>Deep learning training and large-scale imagery processing.</p></div></div>
+    <div class="speclist" data-list="equipment">
+      <div class="spec rv"><div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><circle cx="5" cy="5" r="2.4"/><circle cx="19" cy="5" r="2.4"/><circle cx="5" cy="19" r="2.4"/><circle cx="19" cy="19" r="2.4"/><path d="M7 7l2.5 2.5M17 7l-2.5 2.5M7 17l2.5-2.5M17 17l-2.5-2.5"/></svg></div><div><h3>UAV platform</h3><p>Multirotor drone for field campaigns and plot-level imaging.</p></div><div class="sp">AIR</div></div>
+      <div class="spec rv"><div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 6l1.5-2.5h5L16 6"/></svg></div><div><h3>Multispectral camera</h3><p>Calibrated multispectral imaging for vegetation indices and trait estimation.</p></div><div class="sp">VIS–NIR</div></div>
+      <div class="spec rv"><div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 12c2-6 4-6 6 0s4 6 6 0 4-6 6 0"/></svg></div><div><h3>Hyperspectral sensor</h3><p>Narrow-band spectroscopy for seed quality and crop stress analysis.</p></div><div class="sp">400–1000 nm</div></div>
+      <div class="spec rv"><div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3a2.5 2.5 0 0 0-2.5 2.5v8.2a4.5 4.5 0 1 0 5 0V5.5A2.5 2.5 0 0 0 12 3z"/><path d="M12 10v7"/></svg></div><div><h3>Thermal camera</h3><p>Canopy temperature mapping for water stress and irrigation studies.</p></div><div class="sp">LWIR</div></div>
+      <div class="spec rv"><div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v4M12 3l-4 16M12 3l4 16M4 19h16"/><circle cx="12" cy="3" r="1.2" fill="currentColor"/></svg></div><div><h3>LiDAR</h3><p>3D canopy structure and plant height at plot scale.</p></div><div class="sp">3D</div></div>
+      <div class="spec rv"><div class="ico"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="5" y="5" width="14" height="14" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg></div><div><h3>GPU workstation</h3><p>Deep learning training and large-scale imagery processing.</p></div><div class="sp">CUDA</div></div>
     </div>
   </div>
 </section>
@@ -568,18 +646,18 @@ footer nav{display:flex;gap:18px}
   <div class="wrap contact">
     <div class="rv">
       <p class="eyebrow">Get in touch</p>
-      <h2 id="contact-h" style="color:#fff">Let's work on something that grows.</h2>
+      <h2 id="contact-h" style="color:#fff">Write to the lab.</h2>
       <p class="lede" style="margin-top:14px">Prospective students, collaborators, producers and industry partners are all welcome.</p>
-      <a class="mail" href="mailto:ali.bazrafkan@montana.edu" style="color:#fff">ali.bazrafkan@montana.edu</a>
-      <p class="note" style="color:#a8ad9a">Prospective students: put "Graduate application" in the subject line.</p>
+      <a class="mail" href="mailto:ali.bazrafkan@montana.edu">ali.bazrafkan@montana.edu</a>
+      <p class="note">Prospective students: put "Graduate application" in the subject line.</p>
     </div>
-    <div class="box rv" style="background:var(--ink-2);border-color:rgba(245,243,236,.1)">
+    <div class="box rv">
       <p class="eyebrow">Office</p>
-      <address style="color:#d7dacb">Dr. Ali Bazrafkan<br>Department of Plant Sciences &amp; Plant Pathology<br>College of Agriculture, Montana State University<br>Bozeman, MT 59717</address>
+      <address>Dr. Ali Bazrafkan<br>Department of Plant Sciences &amp; Plant Pathology<br>College of Agriculture, Montana State University<br>Bozeman, MT 59717</address>
       <div class="links" style="margin-top:22px">
-        <a class="pill" href="https://scholar.google.com/citations?hl=en&amp;user=aPv6QYgAAAAJ" target="_blank" rel="noopener">Google Scholar ↗</a>
-        <a class="pill" href="https://github.com/AliBgisrs" target="_blank" rel="noopener">GitHub ↗</a>
-        <a class="pill" href="https://www.linkedin.com/in/ali-bazrafkan-phd-424829244/" target="_blank" rel="noopener">LinkedIn ↗</a>
+        <a class="pill" href="https://scholar.google.com/citations?hl=en&amp;user=aPv6QYgAAAAJ" target="_blank" rel="noopener" style="background:transparent;color:var(--cream);border-color:rgba(245,243,236,.25)">Google Scholar ↗</a>
+        <a class="pill" href="https://github.com/AliBgisrs" target="_blank" rel="noopener" style="background:transparent;color:var(--cream);border-color:rgba(245,243,236,.25)">GitHub ↗</a>
+        <a class="pill" href="https://www.linkedin.com/in/ali-bazrafkan-phd-424829244/" target="_blank" rel="noopener" style="background:transparent;color:var(--cream);border-color:rgba(245,243,236,.25)">LinkedIn ↗</a>
       </div>
     </div>
   </div>
@@ -588,8 +666,18 @@ footer nav{display:flex;gap:18px}
 
 <footer>
   <div class="wrap">
-    <span>© 2026 Ali Bazrafkan · Precision Agriculture · Montana State University</span>
-    <nav aria-label="Footer"><a href="https://scholar.google.com/citations?hl=en&amp;user=aPv6QYgAAAAJ" target="_blank" rel="noopener">Scholar</a><a href="https://github.com/AliBgisrs" target="_blank" rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/ali-bazrafkan-phd-424829244/" target="_blank" rel="noopener">LinkedIn</a></nav>
+    <div>
+      <span class="k">ABZN Lab</span>
+      <span>© 2026 Ali Bazrafkan · Precision Agriculture · Montana State University</span>
+    </div>
+    <div>
+      <span class="k">Elsewhere</span>
+      <nav aria-label="Footer"><a href="https://scholar.google.com/citations?hl=en&amp;user=aPv6QYgAAAAJ" target="_blank" rel="noopener">Google Scholar</a><a href="https://github.com/AliBgisrs" target="_blank" rel="noopener">GitHub</a><a href="https://www.linkedin.com/in/ali-bazrafkan-phd-424829244/" target="_blank" rel="noopener">LinkedIn</a></nav>
+    </div>
+    <div>
+      <span class="k">Field office</span>
+      <span class="coords" data-setting-coords>45.667° N · 111.049° W · Bozeman, MT</span>
+    </div>
   </div>
 </footer>
 
@@ -599,9 +687,22 @@ footer nav{display:flex;gap:18px}
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
 
-  // header state + mobile menu
-  const header = document.getElementById('top');
-  const onScroll = () => header.classList.toggle('scrolled', scrollY > 10);
+  // headline wipe once fonts are ready
+  const ready = () => document.documentElement.classList.add('ready');
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(ready); setTimeout(ready, 900);
+
+  // marquee: duplicate the track once so the loop is seamless
+  const mq = document.getElementById('marquee');
+  if (mq && !reduce) { const dup = mq.cloneNode(true); dup.removeAttribute('id'); dup.setAttribute('aria-hidden', 'true'); mq.parentNode.appendChild(dup); }
+
+  // header state + progress bar + mobile menu
+  const header = document.getElementById('top'), progress = document.getElementById('progress');
+  let ticking = false;
+  const onScroll = () => {
+    header.classList.toggle('scrolled', scrollY > 10);
+    if (ticking) return; ticking = true;
+    requestAnimationFrame(() => { ticking = false; const h = document.documentElement.scrollHeight - innerHeight; progress.style.transform = `scaleX(${h > 0 ? Math.min(1, scrollY / h) : 0})`; });
+  };
   addEventListener('scroll', onScroll, {passive:true}); onScroll();
   const btn = document.querySelector('.menu-btn');
   btn.addEventListener('click', () => {
@@ -612,13 +713,15 @@ footer nav{display:flex;gap:18px}
     document.body.classList.remove('menu-open'); btn.setAttribute('aria-expanded', false);
   }));
 
-  // active nav link
-  const links = [...document.querySelectorAll('nav.main a')];
+  // active nav link + right-rail dot
+  const links = [...document.querySelectorAll('nav.main a')], dots = [...document.querySelectorAll('.rail a')];
   const byId = Object.fromEntries(links.map(a => [a.getAttribute('href').slice(1), a]));
+  const dotById = Object.fromEntries(dots.map(a => [a.getAttribute('href').slice(1), a]));
   const secIO = new IntersectionObserver(es => es.forEach(e => {
     if (!e.isIntersecting) return;
-    const id = e.target.id === 'approach' ? 'home' : e.target.id;
+    const id = e.target.id;
     links.forEach(a => a.classList.toggle('active', a === byId[id]));
+    dots.forEach(a => { if (a === dotById[id]) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current'); });
   }), {rootMargin:'-45% 0px -50% 0px'});
   document.querySelectorAll('main > section[id]').forEach(s => secIO.observe(s));
 
@@ -626,48 +729,304 @@ footer nav{display:flex;gap:18px}
   const rvIO = new IntersectionObserver(es => es.forEach(e => {
     if (e.isIntersecting) { e.target.classList.add('in'); rvIO.unobserve(e.target); }
   }), {rootMargin:'0px 0px -8% 0px'});
-  document.querySelectorAll('.rv').forEach((el, i) => { el.style.transitionDelay = (i % 3) * 70 + 'ms'; rvIO.observe(el); });
 
   // count-up stats
   const cIO = new IntersectionObserver(es => es.forEach(e => {
     if (!e.isIntersecting) return; cIO.unobserve(e.target);
     const el = e.target, to = +el.dataset.count, dec = +(el.dataset.dec || 0), suf = el.dataset.suffix || '';
-    if (reduce) return;
+    if (reduce || isNaN(to)) return;
     const t0 = performance.now(), dur = 1400;
     const tick = t => { const k = Math.min(1, (t - t0) / dur), v = to * (1 - Math.pow(1 - k, 3));
       el.textContent = v.toFixed(dec) + suf; if (k < 1) requestAnimationFrame(tick); };
     requestAnimationFrame(tick);
-    setTimeout(() => { el.textContent = to.toFixed(dec) + suf; }, dur + 150); // land on the exact value even if rAF is throttled
+    setTimeout(() => { el.textContent = to.toFixed(dec) + suf; }, dur + 150);
   }), {threshold:.6});
-  document.querySelectorAll('[data-count]').forEach(el => cIO.observe(el));
 
-  // 3D tilt with glare
-  if (fine && !reduce) document.querySelectorAll('.tilt').forEach(el => {
+  // 3D tilt (PI portrait only)
+  const tilt = el => {
+    if (!fine || reduce || el.dataset.tilt) return; el.dataset.tilt = '1';
+    el.style.transition = 'transform .5s cubic-bezier(.2,.8,.2,1)';
     el.addEventListener('pointermove', e => {
       const r = el.getBoundingClientRect(), px = (e.clientX - r.left) / r.width, py = (e.clientY - r.top) / r.height;
-      el.classList.add('tilting');
-      el.style.setProperty('--ry', ((px - .5) * 12).toFixed(2) + 'deg');
-      el.style.setProperty('--rx', ((.5 - py) * 10).toFixed(2) + 'deg');
-      el.style.setProperty('--gx', px * 100 + '%'); el.style.setProperty('--gy', py * 100 + '%');
+      el.style.transition = 'transform .08s linear';
+      el.style.transform = `perspective(900px) rotateX(${((.5 - py) * 10).toFixed(2)}deg) rotateY(${((px - .5) * 12).toFixed(2)}deg)`;
     });
-    el.addEventListener('pointerleave', () => { el.classList.remove('tilting'); el.style.setProperty('--rx','0deg'); el.style.setProperty('--ry','0deg'); });
-  });
+    el.addEventListener('pointerleave', () => { el.style.transition = 'transform .5s cubic-bezier(.2,.8,.2,1)'; el.style.transform = ''; });
+  };
 
-  // layer stack: prescription zones + step focus
+  // wire reveal / count-up / tilt for everything under `root`; re-run on content loaded from the data sheet
+  // research figures: let the frame take the image's aspect ratio (clamped) so nothing is cropped
+  const fitMedia = img => {
+    const apply = () => { const w = img.naturalWidth, h = img.naturalHeight; if (!w || !h) return;
+      const r = Math.min(1.9, Math.max(0.8, w / h)); img.parentNode.style.aspectRatio = r.toFixed(3); };
+    if (img.complete && img.naturalWidth) apply(); else img.addEventListener('load', apply, {once: true});
+  };
+  const enhance = root => {
+    root.querySelectorAll('.rmedia img').forEach(fitMedia);
+    root.querySelectorAll('.rv:not(.in)').forEach((el, i) => { if (el.dataset.rv) return; el.dataset.rv = '1'; el.style.transitionDelay = (i % 3) * 70 + 'ms'; rvIO.observe(el); });
+    root.querySelectorAll('[data-count]').forEach(el => { if (el.dataset.counted) return; el.dataset.counted = '1'; cIO.observe(el); });
+    root.querySelectorAll('.tilt').forEach(tilt);
+  };
+  enhance(document);
+  window.ABZN_enhance = enhance;
+
+  // layer stack: prescription zones + step focus + scroll-driven separation
   const zones = document.getElementById('zones');
   const zmap = [3,3,2,2,1,1, 3,3,2,2,2,1, 3,2,2,2,1,1, 2,2,3,2,1,1, 2,3,3,2,2,1, 3,3,3,2,2,2];
   zones.innerHTML = zmap.map(z => `<i class="z${z}"></i>`).join('');
-  const stack = document.getElementById('stack');
-  const stackIO = new IntersectionObserver(es => es.forEach(e => stack.classList.toggle('open', e.isIntersecting)), {threshold:.45});
-  stackIO.observe(stack);
+  const stack = document.getElementById('stack'), stage = document.querySelector('.stack-stage');
+  const l1 = stack.querySelector('.l1'), l3 = stack.querySelector('.l3');
+  if (reduce) stack.classList.add('open');
+  else {
+    let on = false;
+    const sep = () => { if (!on) return; const r = stage.getBoundingClientRect(); const k = Math.min(1, Math.max(0, 1 - (r.top + r.height * .5) / innerHeight * 1.1)); const z = (20 + 90 * k).toFixed(1); l1.style.transform = `translateZ(-${z}px)`; l3.style.transform = `translateZ(${z}px)`; };
+    new IntersectionObserver(es => { on = es[0].isIntersecting; sep(); }).observe(stage);
+    addEventListener('scroll', () => requestAnimationFrame(sep), {passive:true});
+  }
   const steps = [...document.querySelectorAll('.step')];
   const focus = n => { stack.classList.remove('focus-1','focus-2','focus-3'); steps.forEach(s => s.classList.toggle('on', s.dataset.l === String(n))); if (n) stack.classList.add('focus-' + n); };
   steps.forEach(s => { s.addEventListener('pointerenter', () => focus(s.dataset.l)); s.addEventListener('focus', () => focus(s.dataset.l)); });
   document.getElementById('steps').addEventListener('pointerleave', () => focus(0));
-  if (fine && !reduce) document.querySelector('.stack-stage').addEventListener('pointermove', e => {
+  if (fine && !reduce) stage.addEventListener('pointermove', e => {
     const r = e.currentTarget.getBoundingClientRect(), px = (e.clientX - r.left) / r.width - .5, py = (e.clientY - r.top) / r.height - .5;
     stack.style.transform = `rotateX(${58 - py * 14}deg) rotateZ(${-38 + px * 18}deg)`;
   });
+})();
+</script>
+
+<!-- ================= Content loader: Google Sheet or data/*.csv ================= -->
+<script>
+/* HOW CONTENT UPDATES WORK
+   Every list on this page (team, publications, news, software, equipment, research, settings) is loaded
+   from a spreadsheet when the page opens. The HTML above is only a fallback that shows when the sheet
+   cannot be reached, so edit the sheet, not this file.
+
+   Option A (active): the Google Sheet "ABZN Lab website", one tab per list, shared as "anyone with the
+   link can view". SHEET_ID is the id in the sheet's own address bar (between /d/ and /edit). No
+   "publish to web" step is needed: the page reads each tab through Google's visualization endpoint.
+   Edit the sheet; the site follows on the next reload (Google caches for a few minutes).
+
+   Option B: set SHEET_ID to '' and keep CSV files in the data/ folder next to this page
+   (data/team.csv, data/publications.csv, …). Excel: File → Save As → "CSV UTF-8 (Comma delimited)".
+   Column names and the update procedure are in data/README.md. */
+window.ABZN_DATA = {
+  SHEET_ID: '16iduezkIRjY_VqzfTmB8dpkZz41bqc38xC7xwi2oosM',
+  TIMEOUT_MS: 6000
+};
+(() => {
+  const CFG = window.ABZN_DATA, TABS = ['settings','team','publications','news','software','equipment','research'];
+  const KEY = { settings:'key', team:'name', publications:'title', news:'title', software:'name', equipment:'name', research:'title' };
+  const yes = v => /^(yes|y|true|1|x)$/i.test((v || '').trim());
+  const safeHref = h => /^(https?:|mailto:|#)/i.test(h || '') ? h : null;
+  // image cells: a bare file name → assets/<file>; a web link → used directly. Google Drive share links and
+  // GitHub "blob" links are rewritten to URLs that actually serve the image.
+  const asset = f => {
+    f = (f || '').trim(); if (!f) return null;
+    if (/^https?:\/\//i.test(f)) {
+      let m = f.match(/drive\.google\.com\/(?:file\/d\/|open\?id=|uc\?(?:export=\w+&)?id=)([\w-]{20,})/i) || f.match(/drive\.google\.com\/.*[?&]id=([\w-]{20,})/i);
+      if (m) return 'https://drive.google.com/thumbnail?id=' + m[1] + '&sz=w1600';
+      m = f.match(/^https?:\/\/github\.com\/([^/]+\/[^/]+)\/blob\/(.+)$/i);
+      if (m) return 'https://raw.githubusercontent.com/' + m[1] + '/' + m[2].replace(/\?.*$/, '');
+      return f;
+    }
+    return /[\/\\:]/.test(f) ? null : 'assets/' + f;
+  };
+
+  // Google Sheet: the gviz endpoint answers in JSONP, which a <script> tag can load from any origin
+  // (plain fetch is blocked by CORS unless the sheet is "published to web", which this avoids).
+  function loadSheet(tab) {
+    return new Promise((resolve, reject) => {
+      const cb = 'abzn_' + tab + '_' + Math.random().toString(36).slice(2);
+      const s = document.createElement('script');
+      const done = () => { clearTimeout(t); delete window[cb]; s.remove(); };
+      const t = setTimeout(() => { done(); reject(new Error('timeout')); }, CFG.TIMEOUT_MS);
+      window[cb] = resp => {
+        done();
+        if (!resp || resp.status !== 'ok' || !resp.table) return reject(new Error(resp && resp.errors && resp.errors[0] ? resp.errors[0].detailed_message || resp.errors[0].message : 'bad response'));
+        const cols = resp.table.cols.map(c => String(c.label || '').trim().toLowerCase());
+        resolve(resp.table.rows.map(r => { const o = {}; (r.c || []).forEach((cell, i) => { if (!cols[i]) return;
+          let v = cell == null ? '' : String(cell.f != null ? cell.f : cell.v == null ? '' : cell.v).trim();
+          if (/^#(ERROR|NAME|VALUE|REF|DIV\/0|N\/A|NUM)[!?]?$/i.test(v)) v = ''; // a cell Sheets mis-read as a formula (e.g. a lone "+")
+          o[cols[i]] = v; }); return o; }));
+      };
+      s.onerror = () => { done(); reject(new Error('script blocked')); };
+      s.src = `https://docs.google.com/spreadsheets/d/${CFG.SHEET_ID}/gviz/tq?tqx=out:json;responseHandler:${cb}&sheet=${encodeURIComponent(tab)}&headers=1&_=${Date.now()}`;
+      document.head.appendChild(s);
+    });
+  }
+
+  function parseCSV(text) {
+    text = text.replace(/^﻿/, '');
+    const rows = []; let row = [], f = '', q = false;
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      if (q) { if (c === '"') { if (text[i+1] === '"') { f += '"'; i++; } else q = false; } else f += c; }
+      else if (c === '"') q = true;
+      else if (c === ',') { row.push(f); f = ''; }
+      else if (c === '\n' || c === '\r') { if (c === '\r' && text[i+1] === '\n') i++; row.push(f); rows.push(row); row = []; f = ''; }
+      else f += c;
+    }
+    if (f !== '' || row.length) { row.push(f); rows.push(row); }
+    if (!rows.length) return [];
+    const head = rows[0].map(h => h.trim().toLowerCase().replace(/^﻿/, ''));
+    return rows.slice(1).map(r => { const o = {}; head.forEach((h, i) => { if (h) o[h] = (r[i] || '').trim(); }); return o; });
+  }
+
+  async function loadCSV(tab) {
+    const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), CFG.TIMEOUT_MS);
+    try {
+      const res = await fetch(`data/${tab}.csv?v=${Date.now()}`, {cache:'no-store', signal: ctl.signal});
+      if (!res.ok) throw new Error(res.status);
+      return parseCSV(await res.text());
+    } finally { clearTimeout(t); }
+  }
+  async function load(tab) {
+    const rows = (await (CFG.SHEET_ID ? loadSheet(tab) : loadCSV(tab))).filter(r => (r[KEY[tab]] || '').trim());
+    if (!rows.length) throw new Error('no rows');
+    return rows;
+  }
+
+  // tiny element builder: text only, never HTML from the sheet
+  const el = (tag, attrs, ...kids) => {
+    const n = document.createElement(tag);
+    for (const [k, v] of Object.entries(attrs || {})) { if (v == null || v === false) continue; if (k === 'class') n.className = v; else if (k === 'text') n.textContent = v; else n.setAttribute(k, v); }
+    kids.flat().forEach(k => { if (k == null) return; n.appendChild(typeof k === 'string' ? document.createTextNode(k) : k); });
+    return n;
+  };
+  const svg = d => { const w = el('div', {class:'ico'}); w.innerHTML = d; return w; }; // icon markup is built-in, not from the sheet
+  const S = 'width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"';
+  const ICONS = {
+    convert: `<svg ${S}><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/><path d="M10 6.5h4a3 3 0 0 1 3 3V14"/></svg>`,
+    layers: `<svg ${S}><path d="M4 7l8-4 8 4-8 4z"/><path d="M4 12l8 4 8-4"/><path d="M4 17l8 4 8-4"/></svg>`,
+    plant: `<svg ${S}><path d="M12 21V10"/><path d="M12 14c0-4-3-6-7-6 0 4 3 6 7 6z"/><path d="M12 10c0-4 3-6 7-6 0 4-3 6-7 6z"/></svg>`,
+    grid: `<svg ${S}><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>`,
+    rows: `<svg ${S}><path d="M5 21V3M10 21V3M15 21V3M20 21V3" stroke-dasharray="2.5 2"/></svg>`,
+    github: `<svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-3.2 19.5c.5.1.7-.2.7-.5v-1.7c-2.8.6-3.4-1.3-3.4-1.3-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.4 1.1 2.9.8.1-.7.4-1.1.6-1.3-2.2-.3-4.6-1.1-4.6-5 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.6 9.6 0 0 1 5 0c1.9-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.9-2.3 4.7-4.6 5 .4.3.7.9.7 1.9v2.8c0 .3.2.6.7.5A10 10 0 0 0 12 2z"/></svg>`,
+    drone: `<svg ${S}><rect x="9.5" y="9.5" width="5" height="5" rx="1"/><circle cx="5" cy="5" r="2.4"/><circle cx="19" cy="5" r="2.4"/><circle cx="5" cy="19" r="2.4"/><circle cx="19" cy="19" r="2.4"/><path d="M7 7l2.5 2.5M17 7l-2.5 2.5M7 17l2.5-2.5M17 17l-2.5-2.5"/></svg>`,
+    camera: `<svg ${S}><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.5"/><path d="M8 6l1.5-2.5h5L16 6"/></svg>`,
+    spectrum: `<svg ${S}><path d="M2 12c2-6 4-6 6 0s4 6 6 0 4-6 6 0"/></svg>`,
+    thermal: `<svg ${S}><path d="M12 3a2.5 2.5 0 0 0-2.5 2.5v8.2a4.5 4.5 0 1 0 5 0V5.5A2.5 2.5 0 0 0 12 3z"/><path d="M12 10v7"/></svg>`,
+    lidar: `<svg ${S}><path d="M12 3v4M12 3l-4 16M12 3l4 16M4 19h16"/><circle cx="12" cy="3" r="1.2" fill="currentColor"/></svg>`,
+    gpu: `<svg ${S}><rect x="5" y="5" width="14" height="14" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v3M15 2v3M9 19v3M15 19v3M2 9h3M2 15h3M19 9h3M19 15h3"/></svg>`,
+    box: `<svg ${S}><rect x="4" y="4" width="16" height="16" rx="2"/></svg>`
+  };
+  const icon = k => svg(ICONS[(k || '').toLowerCase()] || ICONS.box);
+  const num = v => { const n = parseFloat(v); return isNaN(n) ? null : n; };
+  const byOrder = (a, b) => (num(a.order) ?? 1e9) - (num(b.order) ?? 1e9);
+  const initials = (name, given) => given || name.split(/\s+/).filter(Boolean).map(w => w[0]).filter((_, i, a) => i === 0 || i === a.length - 1).join('').toUpperCase();
+  const portrait = (photo, name, ini, cls) => {
+    const p = el('div', {class: cls});
+    const src = asset(photo);
+    if (src) { const img = el('img', {src, alt: 'Portrait of ' + name}); img.onerror = () => p.classList.add('noimg'); p.appendChild(img); } else p.classList.add('noimg');
+    p.appendChild(el('span', {class:'ini', text: initials(name, ini)}));
+    return p;
+  };
+  const ext = {target:'_blank', rel:'noopener'};
+  const swap = (sel, kids) => { const c = document.querySelector(sel); if (!c) return; c.replaceChildren(...kids); window.ABZN_enhance && window.ABZN_enhance(c); };
+
+  // ---- renderers ----
+  function renderSettings(rows) {
+    const s = Object.fromEntries(rows.map(r => [r.key.toLowerCase(), r.value || '']));
+    const hiring = yes(s.hiring);
+    const rec = document.querySelector('[data-setting-recruit]');
+    if (rec) { rec.hidden = !hiring; if (hiring && s.recruit_text) rec.replaceChildren(s.recruit_text + ' · ', el('a', {href: safeHref(s.recruit_link) || '#team', text: 'Join the lab →'})); }
+    document.querySelectorAll('[data-hiring]').forEach(n => n.hidden = !hiring);
+    if (s.email) {
+      document.querySelectorAll('a[href^="mailto:"]').forEach(a => { const q = a.getAttribute('href').split('?')[1]; a.href = 'mailto:' + s.email + (q ? '?' + q : ''); });
+      document.querySelectorAll('.contact .mail').forEach(a => a.textContent = s.email);
+    }
+    // profile links: replace only anchors that still point at the built-in profile URLs (not repository links)
+    const DEFAULTS = { scholar_url: 'https://scholar.google.com/citations?hl=en&user=aPv6QYgAAAAJ', github_url: 'https://github.com/AliBgisrs', linkedin_url: 'https://www.linkedin.com/in/ali-bazrafkan-phd-424829244/' };
+    for (const [key, def] of Object.entries(DEFAULTS)) { const h = safeHref(s[key]); if (h && h !== def) document.querySelectorAll('a[href]').forEach(a => { if (a.getAttribute('href') === def) a.href = h; }); }
+    if (s.coords) document.querySelectorAll('[data-setting-coords]').forEach(n => n.textContent = s.coords);
+    if (s.marquee) { const items = s.marquee.split('|').map(x => x.trim()).filter(Boolean); const mq = document.getElementById('marquee'); if (mq && items.length) { mq.replaceChildren(...items.map(t => el('span', {text: t}))); const dup = mq.parentNode.querySelector('[aria-hidden]'); if (dup) dup.replaceChildren(...items.map(t => el('span', {text: t}))); } }
+    const figs = [];
+    for (let i = 1; i <= 6; i++) { const v = s['stat' + i + '_value'], l = s['stat' + i + '_label']; if (!v || !l) continue;
+      const n = num(v), dec = s['stat' + i + '_decimals'] || (String(v).split('.')[1] || '').length, suf = s['stat' + i + '_suffix'] || '';
+      figs.push(el('div', {class:'fig'}, el('b', n == null ? {text: v} : {'data-count': n, 'data-dec': dec, 'data-suffix': suf, text: n.toFixed(+dec) + suf}), el('span', {text: l}))); }
+    if (figs.length) swap('[data-list="stats"]', figs);
+    return s;
+  }
+  function renderTeam(rows) {
+    rows.sort(byOrder);
+    const pi = rows.find(r => /^pi$/i.test(r.kind));
+    if (pi) {
+      const links = [['Email', pi.email ? 'mailto:' + pi.email : null, false], ['Google Scholar ↗', safeHref(pi.scholar), true], ['GitHub ↗', safeHref(pi.github), true], ['LinkedIn ↗', safeHref(pi.linkedin), true]]
+        .filter(([, h]) => h).map(([t, h, x]) => el('a', {class:'pill', href: h, ...(x ? ext : {}), text: t}));
+      swap('[data-list="pi"]', [portrait(pi.photo, pi.name, pi.initials, 'portrait tilt'),
+        el('div', {}, el('p', {class:'eyebrow', style:'margin-bottom:8px', text: pi.role || 'Principal investigator'}), el('h3', {text: pi.name}), el('p', {text: pi.bio || ''}), el('div', {class:'links'}, links))]);
+    }
+    // hierarchy: PI (shown above) → postdoc → phd → ms → undergrad → alumni
+    const TIERS = [['postdoc', 'Postdoctoral researchers'], ['phd', 'Ph.D. students'], ['ms', 'M.S. students'], ['undergrad', 'Undergraduate researchers'], ['alumni', 'Alumni']];
+    const level = r => {
+      const l = (r.level || '').trim().toLowerCase().replace(/[^a-z]/g, '');
+      if (/^(postdoc|postdoctoral)/.test(l)) return 'postdoc';
+      if (/^(phd|doctoral)/.test(l)) return 'phd';
+      if (/^(ms|msc|master|masters|graduate)/.test(l)) return 'ms';
+      if (/^(undergrad|undergraduate|bs|bsc)/.test(l)) return 'undergrad';
+      if (/^(alumni|alumnus|alumna|former|graduated)/.test(l)) return 'alumni';
+      const t = (r.role || '').toLowerCase();                       // fall back to the role text
+      if (/alumn|former|graduated/.test(t)) return 'alumni';
+      if (/post/.test(t)) return 'postdoc';
+      if (/ph\.?\s?d|doctoral/.test(t)) return 'phd';
+      if (/m\.?\s?s\b|master/.test(t)) return 'ms';
+      if (/undergrad|b\.?\s?s\b/.test(t)) return 'undergrad';
+      return 'phd';
+    };
+    const members = [];
+    for (const [key, title] of TIERS) {
+      const group = rows.filter(r => /^member$/i.test(r.kind) && level(r) === key);
+      if (!group.length) continue;
+      members.push(el('div', {class:'tier rv'}, el('h3', {text: title}), el('span', {class:'n', text: String(group.length).padStart(2, '0')})));
+      group.forEach(r => members.push(el('div', {class:'member rv' + (key === 'alumni' ? ' alum' : '')}, portrait(r.photo, r.name, r.initials, 'portrait'),
+        el('div', {}, el('span', {text: r.role || title}), el('b', {text: r.name}), r.focus ? el('small', {text: r.focus}) : null))));
+    }
+    swap('[data-list="members"]', members);
+    const open = rows.filter(r => /^open$/i.test(r.kind));
+    const pos = document.querySelector('[data-list="positions"]');
+    if (pos) { if (!open.length) pos.hidden = true; else pos.querySelector('ul').replaceChildren(...open.map(r => el('li', {}, r.role || r.name, r.focus ? el('small', {text: r.focus}) : null))); }
+  }
+  function renderPubs(rows) {
+    const Y = new Date().getFullYear();
+    rows.sort((a, b) => (num(b.year) ?? 0) - (num(a.year) ?? 0) || byOrder(a, b) || a.title.localeCompare(b.title));
+    swap('[data-list="publications"]', rows.map(r => el('a', {class: 'pub rv' + (yes(r.new) || (!r.new && num(r.year) === Y) ? ' new' : ''), href: safeHref(r.url) || '#publications', ...(safeHref(r.url) ? ext : {})},
+      el('div', {class:'yr', text: r.year || ''}),
+      el('div', {}, el('h3', {text: r.title}), r.authors ? el('div', {class:'au', text: r.authors}) : null, r.venue ? el('span', {class:'jr', text: r.venue}) : null),
+      el('span', {class:'arrow', 'aria-hidden':'true', text:'↗'}))));
+  }
+  function renderNews(rows) {
+    const key = d => { d = (d || '').trim(); if (/^\d{4}$/.test(d)) return d + '-12-31'; if (/^\d{4}-\d{2}$/.test(d)) return d + '-31'; return d || '0000'; };
+    rows.sort((a, b) => key(b.date).localeCompare(key(a.date)));
+    swap('[data-list="news"]', rows.map(r => el('div', {class:'ev rv'}, el('time', {text: r.label || (r.date || '').slice(0, 4)}), el('div', {}, el('h3', {text: r.title}), r.text ? el('p', {text: r.text}) : null))));
+  }
+  function renderSoftware(rows) {
+    rows.sort(byOrder);
+    swap('[data-list="software"]', rows.map(r => el('a', {class: 'card rv' + (/^all$/i.test(r.style) ? ' all' : ''), href: safeHref(r.url) || '#software', ...ext},
+      icon(r.icon || (/^all$/i.test(r.style) ? 'github' : 'box')), el('h3', {text: r.name}), el('p', {text: r.description || ''}), el('div', {class:'go', text: /^all$/i.test(r.style) ? 'Open GitHub →' : 'View on GitHub ↗'}))));
+  }
+  function renderEquipment(rows) {
+    rows.sort(byOrder);
+    swap('[data-list="equipment"]', rows.map(r => el('div', {class:'spec rv'}, icon(r.icon), el('div', {}, el('h3', {text: r.name}), el('p', {text: r.description || ''})), el('div', {class:'sp', text: r.spec || ''}))));
+  }
+  function renderResearch(rows) {
+    rows.sort(byOrder);
+    const metric = m => { if (!m) return null; const d = el('div', {class:'metric'}); m.split('*').forEach((part, i) => { if (!part) return; d.appendChild(i % 2 ? el('b', {text: part}) : document.createTextNode(part)); }); return d; };
+    swap('[data-list="research"]', rows.map((r, i) => {
+      const media = el('div', {class:'rmedia'}); const src = asset(r.image);
+      if (src) { const img = el('img', {src, alt: r.alt || r.title, loading:'lazy'}); img.onerror = () => img.remove(); media.appendChild(img); }
+      return el('article', {class:'rrow rv'}, el('span', {class:'ghost', 'aria-hidden':'true', text: String(i + 1).padStart(2, '0')}),
+        el('div', {class:'rtext'}, el('h3', {text: r.title}), metric(r.metric), r.text ? el('p', {text: r.text}) : null,
+          r.chips ? el('ul', {class:'chips'}, r.chips.split(/[|,]/).map(c => c.trim()).filter(Boolean).map(c => el('li', {text: c}))) : null), media);
+    }));
+  }
+  const RENDER = { settings: renderSettings, team: renderTeam, publications: renderPubs, news: renderNews, software: renderSoftware, equipment: renderEquipment, research: renderResearch };
+
+  if (location.protocol === 'file:' && !CFG.SHEET_ID) { console.info('ABZN: opened from disk, showing built-in content. Host the folder (or set SHEET_ID) to load data/*.csv.'); return; }
+  Promise.allSettled(TABS.map(load)).then(results => results.forEach((res, i) => {
+    const tab = TABS[i];
+    if (res.status !== 'fulfilled') { console.warn(`ABZN: ${tab} not loaded (${res.reason && res.reason.message}); keeping built-in content.`); return; }
+    try { RENDER[tab](res.value); } catch (e) { console.warn(`ABZN: ${tab} render failed`, e); }
+  }));
 })();
 </script>
 
